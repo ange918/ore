@@ -1,36 +1,46 @@
-# [Project name]
+# NELLOA BANK
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Application web fintech française — banque digitale avec inscription, espace client et panel admin.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
+- `pnpm --filter @workspace/nelloa-bank run dev` — run the frontend (port 20254)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required env: none required (localStorage-based app)
+- Optional env: `RESEND_API_KEY`, `ADMIN_EMAIL` — for email notifications on new signups
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS v4, wouter (routing), framer-motion, Space Grotesk font
+- API: Express 5 (for email notifications only)
+- No database — all user data in localStorage
+- Email: Resend (optional, configured via env vars)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/nelloa-bank/src/lib/storage.ts` — localStorage data layer (users + sessions)
+- `artifacts/nelloa-bank/src/pages/` — all pages (Landing, Register, Login, Dashboard, Admin)
+- `artifacts/api-server/src/routes/notify-admin.ts` — POST /api/notify-admin email route
+- `lib/api-spec/openapi.yaml` — API spec (only healthz endpoint used)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- No database: all user data stored in localStorage under `nelloa_users` key
+- Sessions stored in localStorage under `nelloa_session` (user ID string)
+- Admin auth uses sessionStorage (clears on tab close)
+- Admin password is hardcoded: `NELLOA_ADMIN_2025`
+- Email notifications are fire-and-forget (non-blocking) — app works without Resend configured
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Landing page** (`/`): Marketing page with hero, 3 account offer cards, how-it-works steps
+- **Registration** (`/register`): 3-step flow (personal info → account type → summary) with UUID-based user creation
+- **Login** (`/login`): Email + password authentication against localStorage
+- **Dashboard** (`/dashboard`): Client space — shows KYC upload UI if blocked, account details if active
+- **Admin** (`/admin`): Password-protected panel to view all users and approve/reject KYC
 
 ## User preferences
 
@@ -38,7 +48,10 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Admin password: `NELLOA_ADMIN_2025` (hardcoded in AdminPage.tsx)
+- New users always start with status `blocked` and kycStatus `pending` — admin must approve
+- Email notifications only work when both `RESEND_API_KEY` and `ADMIN_EMAIL` env vars are set
+- uuid package must be in nelloa-bank devDependencies (not just added to package.json manually)
 
 ## Pointers
 

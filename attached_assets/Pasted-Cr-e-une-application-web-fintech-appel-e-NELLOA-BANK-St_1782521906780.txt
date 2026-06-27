@@ -1,0 +1,231 @@
+Crée une application web fintech appelée NELLOA BANK.
+
+Stack : Next.js 14 (App Router), TypeScript, Tailwind CSS.
+Installe aussi : resend, uuid, @types/uuid
+Ajoute Google Fonts Space Grotesk dans le layout principal.
+Langue de l'interface : Français.
+Design : bleu professionnel. Couleur principale #1E3A8A, secondaire #3B82F6, fond #F8FAFC. Typographie Space Grotesk. Mobile-First.
+
+Pas de base de données. Toutes les données utilisateurs sont stockées dans le localStorage du navigateur.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIABLES D'ENVIRONNEMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crée un fichier .env.local avec :
+RESEND_API_KEY=
+ADMIN_EMAIL=
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FICHIER /lib/storage.ts
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Définis ce type TypeScript :
+
+type User = {
+  id: string
+  firstName: string
+  lastName: string
+  phone: string
+  email: string
+  password: string
+  accountType: 'personnel' | 'courant' | 'premium'
+  balance: number
+  currency: string
+  status: 'blocked' | 'active'
+  kycStatus: 'pending' | 'verified' | 'rejected'
+  createdAt: string
+}
+
+Crée et exporte ces fonctions SSR-safe (vérifier que window est défini avant d'accéder au localStorage) :
+- getUsers() → lit "nelloa_users", retourne User[]
+- saveUsers(users: User[]) → écrit dans "nelloa_users"
+- getUserById(id: string) → User | null
+- getUserByEmail(email: string) → User | null
+- updateUser(id: string, data: Partial<User>) → met à jour et resauvegarde
+- getSession() → lit "nelloa_session", retourne string | null
+- setSession(id: string) → écrit dans "nelloa_session"
+- clearSession() → supprime "nelloa_session"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FICHIER /app/api/notify-admin/route.ts
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Route POST qui reçoit : firstName, lastName, email, phone, accountType, createdAt
+Envoie un email via Resend :
+- From : "NELLOA BANK <onboarding@resend.dev>"
+- To : process.env.ADMIN_EMAIL
+- Subject : "🏦 Nouvelle inscription NELLOA BANK"
+- Body HTML : toutes les infos du nouvel inscrit + message "Connectez-vous au panel admin pour gérer ce compte."
+Retourne { success: true } ou { error: string }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE / — LANDING PAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HEADER :
+- Logo texte "NELLOA BANK" à gauche en #1E3A8A, gras
+- Desktop : liens "Nos Offres", bouton outline "Connexion" → /login, bouton plein "Ouvrir un compte" → /register
+- Mobile : menu burger overlay plein écran avec les mêmes liens
+
+SECTION HERO :
+- Fond dégradé de #1E3A8A vers #3B82F6
+- Titre blanc : "La banque qui vous fait confiance"
+- Sous-titre blanc : "Ouvrez votre compte en 3 minutes et accédez à votre espace sécurisé."
+- Bouton blanc texte bleu : "Commencer maintenant" → /register
+
+SECTION OFFRES (id="offres") :
+3 cartes côte à côte desktop, empilées mobile.
+
+Carte 1 — Compte Personnel
+- Icône 💳, avantages : IBAN personnel, carte virtuelle, suivi des dépenses
+- "3 200 € offerts à l'ouverture"
+- Bouton "Choisir cette offre" → /register?type=personnel
+
+Carte 2 — Compte Courant (badge "Populaire", bordure bleue, légère ombre)
+- Icône 🏦, avantages : Virements illimités, domiciliation bancaire, chéquier
+- "3 200 € offerts à l'ouverture"
+- Bouton plein bleu "Choisir cette offre" → /register?type=courant
+
+Carte 3 — Compte Premium
+- Icône ⭐, avantages : Conseiller dédié, cashback 2%, carte Gold internationale
+- "3 200 € offerts à l'ouverture"
+- Bouton "Choisir cette offre" → /register?type=premium
+
+SECTION COMMENT ÇA MARCHE :
+3 étapes numérotées :
+1. "Je crée mon compte" — Remplissez le formulaire en 2 minutes
+2. "Je vérifie mon identité" — Déposez votre pièce d'identité
+3. "J'accède à mes fonds" — Votre compte est activé par notre équipe
+
+FOOTER :
+- Fond #1E3A8A, texte blanc
+- © 2025 NELLOA BANK — Mentions légales — Contact
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE /register — INSCRIPTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Composant client. Stepper visuel 3 étapes en haut.
+
+Étape 1 — Informations personnelles :
+Champs : Prénom, Nom, Téléphone, Email, Mot de passe, Confirmer le mot de passe
+Validation : tous obligatoires, email valide, mot de passe min 6 caractères, mots de passe identiques
+Bouton "Suivant"
+
+Étape 2 — Choix du compte :
+3 cartes cliquables : Personnel, Courant, Premium avec icône et 2 avantages chacune
+Si URL contient ?type=xxx → pré-sélectionner automatiquement
+Boutons "Précédent" et "Suivant"
+
+Étape 3 — Récapitulatif :
+Afficher : Prénom + Nom, Email, Type de compte, Solde initial 3 200,00 €
+Boutons "Précédent" et "Créer mon compte"
+
+À la soumission :
+1. Générer un UUID
+2. Créer l'objet User : status 'blocked', kycStatus 'pending', balance 3200, currency 'EUR', createdAt new Date().toISOString()
+3. saveUsers() dans localStorage
+4. POST vers /api/notify-admin avec les infos
+5. setSession(user.id)
+6. Redirect /dashboard
+Afficher un loader sur le bouton pendant l'envoi.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE /login — CONNEXION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Carte centrée avec :
+- Logo "NELLOA BANK" en haut
+- Titre "Connexion à votre espace"
+- Champ Email
+- Champ Mot de passe avec toggle afficher/masquer
+- Bouton plein bleu "Se connecter"
+- Lien "Pas encore de compte ? S'inscrire" → /register
+
+À la soumission :
+1. getUserByEmail(email)
+2. Vérifier mot de passe
+3. Si ok → setSession(user.id) → redirect /dashboard
+4. Si erreur → message rouge "Email ou mot de passe incorrect"
+SSR safe : utiliser useEffect pour accéder au localStorage.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE /dashboard — ESPACE CLIENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Composant client. Au chargement (useEffect) :
+1. getSession() → si pas de session → redirect /login
+2. getUserById(sessionId) → charger l'utilisateur
+
+HEADER :
+- Logo "NELLOA BANK" à gauche
+- Prénom utilisateur à droite
+- Bouton "Déconnexion" → clearSession() puis redirect /login
+
+CAS 1 — status === 'blocked' :
+- Icône 🔒 centrée
+- Titre : "Votre compte est bloqué"
+- Message : "Pour activer votre compte et accéder à vos 3 200 €, veuillez soumettre une pièce d'identité valide."
+
+Si kycStatus === 'pending' :
+- Zone drag & drop fictive (bordure pointillée bleue)
+- Texte : "Glissez votre pièce d'identité ici ou cliquez pour parcourir"
+- Formats : JPG, PNG, PDF
+- Bouton "Envoyer le document"
+- Au clic → alerte verte : "✅ Document envoyé. Notre équipe vérifie votre identité sous 24h."
+
+Si kycStatus === 'rejected' :
+- Message rouge : "❌ Votre document a été refusé. Veuillez soumettre un nouveau document valide."
+- Réafficher la zone d'upload
+
+CAS 2 — status === 'active' :
+- Message : "Bienvenue, [Prénom] 👋"
+- Badge vert "Compte actif ✅"
+- Carte avec : type de compte, solde en grand "3 200,00 €", devise EUR, date d'ouverture
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE /admin — PANEL ADMINISTRATEUR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Composant client.
+
+Au chargement : vérifier si sessionStorage contient "nelloa_admin_auth" === "true".
+Si non → afficher écran mot de passe :
+- Logo "NELLOA BANK — Administration"
+- Champ mot de passe
+- Bouton "Accéder"
+- Mot de passe valide codé en dur : NELLOA_ADMIN_2025
+- Si correct → sessionStorage.setItem("nelloa_admin_auth", "true") → afficher panel
+- Si incorrect → message rouge "Mot de passe incorrect"
+
+INTERFACE ADMIN :
+
+Header :
+- "NELLOA BANK — Administration" à gauche
+- Bouton "Déconnexion" → sessionStorage.removeItem("nelloa_admin_auth") → recharger la page
+
+Tableau des membres :
+- Charger tous les users via getUsers()
+- Colonnes : Prénom | Nom | Email | Type de compte | KYC | Statut | Date | Actions
+- Badge rouge "Bloqué" si status blocked, vert "Actif" si active
+- Badge orange "En attente" si kycStatus pending, vert "Vérifié" si verified, rouge "Refusé" si rejected
+- Bouton "Voir" par ligne → ouvre un modal
+
+Modal détail membre :
+- Toutes les infos de l'utilisateur
+- Bouton vert "✅ Approuver et Activer" → updateUser(id, { status: 'active', kycStatus: 'verified' }) → fermer modal → rafraîchir tableau
+- Bouton rouge "❌ Rejeter" → updateUser(id, { status: 'blocked', kycStatus: 'rejected' }) → fermer modal → rafraîchir tableau
+
+Si aucun utilisateur → "Aucun membre inscrit pour le moment."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONSIGNES FINALES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+- Tout le texte de l'interface est en français
+- Composants réutilisables dans /components
+- Zéro erreur TypeScript
+- Toutes les pages responsive Mobile-First
+- Animations légères Tailwind (transition, hover, focus)
+- Créer README.md avec instructions d'installation et variables d'environnement
