@@ -2,16 +2,33 @@ export type User = {
   id: string
   firstName: string
   lastName: string
+  birthDate: string
+  nationality: string
+  idNumber: string
+  address: string
+  postalBox?: string
+  city: string
+  postalCode: string
+  country: string
   phone: string
   email: string
   password: string
-  accountType: 'personnel' | 'courant' | 'premium'
+  accountType: 'personnel' | 'courant' | 'premium' | 'epargne'
   balance: number
   currency: string
   status: 'blocked' | 'active'
   kycStatus: 'pending' | 'verified' | 'rejected'
   createdAt: string
+  iban: string
+  bic: string
 }
+
+export function generateIban(userId: string): string {
+  const digits = userId.replace(/[^0-9]/g, '').padEnd(11, '1').slice(0, 11)
+  return `FR76 3000 6000 01${digits.slice(0, 2)} ${digits.slice(2, 6)} ${digits.slice(6, 10)} ${digits.slice(10)}76`
+}
+
+export const BIC = 'NELLOFR21XXX'
 
 // SSR-safe localStorage access
 const isBrowser = () => typeof window !== 'undefined'

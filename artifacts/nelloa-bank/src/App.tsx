@@ -26,6 +26,7 @@ function Router() {
       <Route path="/offres/compte-personnel">{() => <OffrePage slug="compte-personnel" />}</Route>
       <Route path="/offres/compte-business">{() => <OffrePage slug="compte-business" />}</Route>
       <Route path="/offres/carte-bancaire">{() => <OffrePage slug="carte-bancaire" />}</Route>
+      <Route path="/offres/epargne">{() => <OffrePage slug="epargne" />}</Route>
 
       {/* Crédit Bancaire */}
       <Route path="/credits/pret-immobilier">{() => <OffrePage slug="pret-immobilier" />}</Route>
