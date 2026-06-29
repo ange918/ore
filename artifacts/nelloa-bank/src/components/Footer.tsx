@@ -6,9 +6,15 @@ export function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           <div>
-            <Link href="/" className="font-bold text-xl block mb-3">NELLOA BANK</Link>
-            <p className="text-white/50 text-sm leading-relaxed">
+            <Link href="/" className="block mb-3">
+              <img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-10 w-auto" />
+            </Link>
+            <p className="text-white/50 text-sm leading-relaxed mb-3">
               La banque digitale qui vous fait confiance. Ouvrez votre compte en 3 minutes, 100 % en ligne.
+            </p>
+            <p className="text-white/40 text-xs leading-relaxed">
+              LIBRE REPONSE 8975975443<br />
+              PARIS CEDEX 09
             </p>
           </div>
 

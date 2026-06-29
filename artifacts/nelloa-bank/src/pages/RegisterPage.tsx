@@ -72,9 +72,9 @@ const accountOptions: {
 function RecapRow({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
-    <div className="flex gap-4">
-      <p className="text-sm text-muted-foreground w-44 shrink-0">{label}</p>
-      <p className="font-medium text-foreground text-sm">{value}</p>
+    <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
+      <p className="text-sm text-muted-foreground sm:w-44 sm:shrink-0">{label}</p>
+      <p className="font-medium text-foreground text-sm break-all">{value}</p>
     </div>
   );
 }
@@ -174,7 +174,7 @@ export function RegisterPage() {
   return (
     <div className="min-h-[100dvh] bg-slate-50 flex flex-col">
       <header className="bg-white shadow-sm h-16 flex items-center px-4 md:px-8 shrink-0">
-        <Link href="/" className="font-bold text-xl text-primary">NELLOA BANK</Link>
+        <Link href="/"><img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-9 w-auto" /></Link>
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
