@@ -2,7 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { ChevronDown, ChevronUp, Quote, Star } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
