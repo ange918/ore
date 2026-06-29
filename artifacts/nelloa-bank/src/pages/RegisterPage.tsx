@@ -103,8 +103,9 @@ export function RegisterPage() {
     },
   });
 
-  const onInfoSubmit = (data: InfoFormValues) => {
-    if (getUserByEmail(data.email)) {
+  const onInfoSubmit = async (data: InfoFormValues) => {
+    const existing = await getUserByEmail(data.email);
+    if (existing) {
       form.setError("email", { message: "Cet email est déjà utilisé" });
       return;
     }
