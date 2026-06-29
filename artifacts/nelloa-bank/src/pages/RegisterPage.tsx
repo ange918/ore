@@ -72,9 +72,9 @@ const accountOptions: {
 function RecapRow({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
-    <div className="flex gap-4">
-      <p className="text-sm text-muted-foreground w-44 shrink-0">{label}</p>
-      <p className="font-medium text-foreground text-sm">{value}</p>
+    <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
+      <p className="text-sm text-muted-foreground sm:w-44 sm:shrink-0">{label}</p>
+      <p className="font-medium text-foreground text-sm break-all">{value}</p>
     </div>
   );
 }
