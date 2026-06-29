@@ -488,7 +488,8 @@ export function LandingPage() {
           </div>
           <div className="text-center mt-12">
             <p className="text-muted-foreground mb-4">Vous n'avez pas trouvé votre réponse ?</p>
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">Contacter le support</Button>
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary/5" onClick={() => window.open('mailto:contact@nelloabank.com')}>Contacter le support</Button>
+            <p className="text-muted-foreground text-sm mt-4">+33 6 70 85 89 30 · contact@nelloabank.com</p>
           </div>
         </div>
       </section>

@@ -73,7 +73,7 @@ const OFFRE_FAQ = [
   { question: "Puis-je ouvrir un compte depuis l'étranger ?", answer: "Oui, NELLOA BANK accepte les résidents étrangers. La procédure est entièrement en ligne et accessible depuis n'importe quel pays." },
   { question: "Quand est créditée la prime de bienvenue ?", answer: "La prime de 3 200 € est créditée dès l'activation de votre compte par notre équipe de conformité, soit sous 24 à 48h après réception de votre dossier complet." },
   { question: "Y a-t-il des frais cachés ?", answer: "Non, tous nos tarifs sont affichés transparemment dans la section Nos Tarifs. Aucune surprise, aucun frais masqué." },
-  { question: "Comment contacter le support ?", answer: "Via le chat en ligne (disponible 24h/24), par email à support@nelloabank.com, ou par téléphone du lundi au samedi de 8h à 20h." },
+  { question: "Comment contacter le support ?", answer: "Via le chat en ligne (disponible 24h/24), par email à contact@nelloabank.com, ou par téléphone au +33 6 70 85 89 30 du lundi au samedi de 8h à 20h." },
 ];
 
 /* ── OFFRES DATA ────────────────────────────────────────── */
