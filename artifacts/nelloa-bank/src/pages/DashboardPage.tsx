@@ -145,8 +145,7 @@ export function DashboardPage() {
               <div>
                 <p className="font-semibold text-amber-900 text-sm">Compte en cours de validation</p>
                 <p className="text-amber-700 text-xs mt-0.5">
-                  Votre dossier est examiné par notre équipe. Vous recevrez une confirmation sous 24h.
-                  En attendant, veuillez soumettre votre pièce d'identité ci-dessous.
+                  Votre dossier est examiné par notre équipe. La prime de bienvenue de 3 200 € sera créditée automatiquement après activation. Soumettez votre pièce d'identité ci-dessous pour accélérer la validation.
                 </p>
               </div>
             </div>
@@ -198,7 +197,7 @@ export function DashboardPage() {
                 </div>
                 <div>
                   <h2 className="text-xl font-bold">Vérification d'identité requise</h2>
-                  <p className="text-muted-foreground text-sm">Pour accéder à vos 3 200 €, soumettez une pièce d'identité.</p>
+                  <p className="text-muted-foreground text-sm">Soumettez votre pièce d'identité pour activer votre compte et débloquer votre prime de bienvenue de 3 200 €.</p>
                 </div>
               </div>
 

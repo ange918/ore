@@ -370,7 +370,7 @@ export function RegisterPage() {
                     <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4">Compte choisi</h3>
                     <div className="space-y-2">
                       <RecapRow label="Type de compte" value={accountTypeLabels[accountType]} />
-                      <RecapRow label="Solde initial" value="3 200,00 €" />
+                      <RecapRow label="Prime de bienvenue" value="3 200 € (créditée automatiquement après activation par notre équipe)" />
                     </div>
                   </div>
                 </div>

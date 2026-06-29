@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Footer } from "@/components/Footer";
 
 import {
   CreditCardIcon,
@@ -53,14 +54,14 @@ const navMenus = [
 ];
 
 const testimonials = [
-  { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et la prime de bienvenue est réelle. Je recommande !", initials: "AD" },
+  { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et la prime de bienvenue est bien créditée après activation. Je recommande !", initials: "AD" },
   { name: "Sophie Martin", role: "Freelance Designer", text: "Le tableau de bord est clair et intuitif. Fini les frais cachés, fini les longues attentes. Mon compte courant NELLOA m'a simplifié la vie au quotidien.", initials: "SM" },
   { name: "Kouassi Bamba", role: "Responsable commercial", text: "Le compte Premium vaut vraiment son nom. Mon conseiller dédié répond en moins d'une heure et le cashback 2 % m'a fait économiser plusieurs centaines d'euros.", initials: "KB" },
 ];
 
 const faqs = [
-  { question: "Combien de temps faut-il pour ouvrir un compte ?", answer: "L'ouverture de votre compte prend moins de 3 minutes. Remplissez le formulaire en ligne, déposez votre pièce d'identité, et notre équipe active votre compte sous 24h." },
-  { question: "Comment fonctionne la prime de bienvenue de 3 200 € ?", answer: "Dès l'activation de votre compte par notre équipe, la prime de 3 200 € est créditée directement sur votre solde. Elle est disponible immédiatement pour vos transactions." },
+  { question: "Combien de temps faut-il pour ouvrir un compte ?", answer: "L'ouverture de votre compte prend moins de 3 minutes. Remplissez le formulaire en ligne, déposez votre pièce d'identité, et notre équipe active votre compte sous 24 à 48h." },
+  { question: "Quand est créditée la prime de bienvenue de 3 200 € ?", answer: "La prime de bienvenue de 3 200 € est créditée automatiquement après activation de votre compte par notre équipe, suite à la vérification de votre dossier (sous 24 à 48h)." },
   { question: "Quels documents sont nécessaires pour la vérification d'identité ?", answer: "Nous acceptons les cartes nationales d'identité, passeports et titres de séjour en cours de validité. Les fichiers acceptés sont JPG, PNG et PDF (max 10 Mo)." },
   { question: "Mon argent est-il en sécurité chez NELLOA BANK ?", answer: "Oui, absolument. NELLOA BANK utilise un chiffrement bancaire de niveau militaire (SSL 256 bits) et une authentification à deux facteurs pour protéger votre compte." },
   { question: "Puis-je changer de type de compte après l'ouverture ?", answer: "Oui. Vous pouvez faire une demande de changement de formule depuis votre espace client ou en contactant notre service client. La transition se fait sans interruption de service." },
@@ -69,7 +70,7 @@ const faqs = [
 
 /* ── DROPDOWN ──────────────────────────────────────────── */
 
-function DropdownMenu({ label, items }: { label: string; items: typeof navMenus[0]["items"] }) {
+function DropdownMenu({ label, items }: { label: string; items: (typeof navMenus)[0]["items"] }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -167,16 +168,11 @@ function HeroCard() {
       transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       className="hidden lg:block"
     >
-      <div
-        className="w-[340px] h-[210px] rounded-3xl relative overflow-hidden shadow-2xl"
-        style={{ background: "linear-gradient(135deg, #1a3066 0%, #1e4db7 55%, #3b82f6 100%)" }}
-      >
-        {/* Decorative circles */}
+      <div className="w-[340px] h-[210px] rounded-3xl relative overflow-hidden shadow-2xl"
+        style={{ background: "linear-gradient(135deg, #1a3066 0%, #1e4db7 55%, #3b82f6 100%)" }}>
         <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/6" />
         <div className="absolute -bottom-16 -left-8 w-64 h-64 rounded-full bg-white/5" />
-
         <div className="relative z-10 h-full flex flex-col justify-between p-6">
-          {/* Top */}
           <div className="flex justify-between items-start">
             <span className="text-white font-bold text-base tracking-wide">NELLOA BANK</span>
             <div className="w-10 h-7 bg-yellow-300/80 rounded-md flex items-center justify-center border border-yellow-500/20">
@@ -185,39 +181,25 @@ function HeroCard() {
               </div>
             </div>
           </div>
-
-          {/* Card number */}
           <div>
             <p className="text-white/50 text-[10px] uppercase tracking-widest mb-1">Numéro de carte</p>
             <p className="text-white font-mono text-lg tracking-[0.25em]">•••• •••• •••• 4521</p>
           </div>
-
-          {/* Bottom */}
           <div className="flex justify-between items-end">
             <div>
               <p className="text-white/50 text-[10px] uppercase tracking-wider mb-0.5">Titulaire</p>
               <p className="text-white font-semibold text-sm uppercase tracking-wide">Jean Dupont</p>
               <div className="flex gap-4 mt-1.5">
-                <div>
-                  <p className="text-white/40 text-[9px] uppercase">Expire</p>
-                  <p className="text-white/90 text-xs font-mono">12/28</p>
-                </div>
-                <div>
-                  <p className="text-white/40 text-[9px] uppercase">CVV</p>
-                  <p className="text-white/90 text-xs font-mono">•••</p>
-                </div>
+                <div><p className="text-white/40 text-[9px] uppercase">Expire</p><p className="text-white/90 text-xs font-mono">12/28</p></div>
+                <div><p className="text-white/40 text-[9px] uppercase">CVV</p><p className="text-white/90 text-xs font-mono">•••</p></div>
               </div>
             </div>
             <p className="text-white font-black text-2xl italic tracking-tight">VISA</p>
           </div>
         </div>
       </div>
-
-      {/* Second card peeking behind */}
-      <div
-        className="w-[300px] h-[190px] rounded-3xl mx-auto -mt-40 ml-8 opacity-40"
-        style={{ background: "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)" }}
-      />
+      <div className="w-[300px] h-[190px] rounded-3xl mx-auto -mt-40 ml-8 opacity-40"
+        style={{ background: "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)" }} />
     </motion.div>
   );
 }
@@ -254,8 +236,7 @@ export function LandingPage() {
                   {m.items.map((item) => (
                     <Link key={item.href} href={item.href} onClick={() => setIsMenuOpen(false)}
                       className="flex items-center gap-3 px-2 py-2.5 text-sm font-medium text-foreground hover:text-primary rounded-lg hover:bg-primary/5 transition-colors">
-                      <item.Icon className="h-4 w-4 text-primary" />
-                      {item.label}
+                      <item.Icon className="h-4 w-4 text-primary" />{item.label}
                     </Link>
                   ))}
                 </div>
@@ -276,18 +257,13 @@ export function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A]/92 via-[#1E3A8A]/82 to-[#3B82F6]/70" />
         <div className="container relative z-10 px-4 py-24">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 justify-between">
-            {/* Left text */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex-1 text-center lg:text-left max-w-2xl"
-            >
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+              className="flex-1 text-center lg:text-left max-w-2xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
                 La banque qui vous fait confiance
               </h1>
               <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl lg:max-w-none">
-                Ouvrez votre compte en 3 minutes. Profitez d'une prime de 3 200 € et d'un accès immédiat à tous nos services bancaires.
+                Ouvrez votre compte en 3 minutes. Bénéficiez d'une prime de bienvenue de 3 200 € créditée après activation et d'un accès immédiat à tous nos services.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/register">
@@ -302,8 +278,6 @@ export function LandingPage() {
                 </a>
               </div>
             </motion.div>
-
-            {/* Right: animated card */}
             <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
               <HeroCard />
             </motion.div>
@@ -346,7 +320,7 @@ export function LandingPage() {
                 Fondée par des experts de la finance et de la technologie, NELLOA BANK accompagne des milliers de clients dans la gestion de leurs comptes, crédits et assurances — avec une équipe support disponible 7 jours sur 7.
               </p>
               <div className="grid grid-cols-3 gap-6">
-                {[{ value: "50 000+", label: "Clients actifs" }, { value: "99,9 %", label: "Disponibilité" }, { value: "7j/7", label: "Support client" }].map((stat) => (
+                {[{ value: "12 000+", label: "Clients actifs" }, { value: "99,9 %", label: "Disponibilité" }, { value: "7j/7", label: "Support client" }].map((stat) => (
                   <div key={stat.label} className="text-center p-4 bg-slate-50 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-primary">{stat.value}</p>
                     <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
@@ -354,7 +328,6 @@ export function LandingPage() {
                 ))}
               </div>
             </motion.div>
-
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="grid grid-cols-2 gap-4">
               {[
                 { Icon: LockClosedIcon, title: "Sécurité maximale", desc: "Chiffrement SSL 256 bits et authentification à deux facteurs pour protéger vos données." },
@@ -390,35 +363,66 @@ export function LandingPage() {
             </h3>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {[
-                { href: "/offres/compte-personnel", Icon: CreditCardIcon, titre: "Compte Personnel", desc: "L'essentiel pour vos dépenses quotidiennes.", avantages: ["IBAN personnel", "Carte virtuelle", "Suivi des dépenses"], type: "personnel" },
-                { href: "/offres/compte-business", Icon: BuildingOffice2Icon, titre: "Compte Business", desc: "Pour les entrepreneurs et professionnels.", avantages: ["Virements illimités", "Domiciliation bancaire", "Chéquier"], type: "courant", popular: true },
-                { href: "/offres/carte-bancaire", Icon: SparklesIcon, titre: "Carte Bancaire", desc: "Visa classique ou Gold internationale.", avantages: ["Paiement sans contact", "Cashback 2 %", "Assurance voyage"], type: "premium" },
-                { href: "/offres/epargne", Icon: ArrowTrendingUpIcon, titre: "Compte Épargne", desc: "Faites fructifier votre argent à 3,5 % / an.", avantages: ["Taux 3,5 % / an", "Intérêts mensuels", "Objectifs auto"], type: "epargne", isNew: true },
+                {
+                  href: "/offres/compte-personnel", Icon: CreditCardIcon, titre: "Compte Personnel",
+                  desc: "L'essentiel pour vos dépenses quotidiennes.",
+                  avantages: ["IBAN personnel", "Carte virtuelle", "Suivi des dépenses"],
+                  imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&fit=crop",
+                },
+                {
+                  href: "/offres/compte-business", Icon: BuildingOffice2Icon, titre: "Compte Business",
+                  desc: "Pour les entrepreneurs et professionnels.",
+                  avantages: ["Virements illimités", "Domiciliation bancaire", "Tableau de bord"],
+                  popular: true,
+                  imageUrl: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80&fit=crop",
+                },
+                {
+                  href: "/offres/carte-bancaire", Icon: SparklesIcon, titre: "Carte Bancaire",
+                  desc: "Visa classique ou Gold internationale.",
+                  avantages: ["Paiement sans contact", "Cashback 2 %", "Assurance voyage"],
+                  imageUrl: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=600&q=80&fit=crop",
+                },
+                {
+                  href: "/offres/epargne", Icon: ArrowTrendingUpIcon, titre: "Compte Épargne",
+                  desc: "Faites fructifier votre argent à 3,5 % / an.",
+                  avantages: ["Taux 3,5 % / an", "Intérêts mensuels", "Objectifs auto"],
+                  isNew: true,
+                  imageUrl: "https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=600&q=80&fit=crop",
+                },
               ].map((offre) => (
-                <div key={offre.href} className={`bg-card rounded-2xl p-6 border flex flex-col transition-all duration-200 hover:shadow-md relative ${offre.popular ? "border-2 border-primary shadow-md" : "border-border"}`}>
-                  {offre.popular && <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">Populaire</div>}
-                  {offre.isNew && <div className="absolute top-0 right-0 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">Nouveau</div>}
-                  <div className={`h-11 w-11 rounded-full flex items-center justify-center mb-4 ${offre.popular ? "bg-primary" : "bg-primary/10"}`}>
-                    <offre.Icon className={`h-5 w-5 ${offre.popular ? "text-white" : "text-primary"}`} />
+                <div key={offre.href} className={`bg-card rounded-2xl border overflow-hidden flex flex-col transition-all duration-200 hover:shadow-md ${offre.popular ? "border-2 border-primary shadow-md" : "border-border"}`}>
+                  {/* Card image */}
+                  <div className="h-40 overflow-hidden relative">
+                    <img src={offre.imageUrl} alt={offre.titre} className="w-full h-full object-cover" />
+                    {offre.popular && <div className="absolute top-2.5 right-2.5 bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">Populaire</div>}
+                    {offre.isNew && <div className="absolute top-2.5 right-2.5 bg-teal-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">Nouveau</div>}
                   </div>
-                  <h4 className="text-lg font-bold mb-1">{offre.titre}</h4>
-                  <p className="text-muted-foreground text-sm mb-4 flex-1">{offre.desc}</p>
-                  <ul className="space-y-1.5 mb-5">
-                    {offre.avantages.map((a) => (
-                      <li key={a} className="flex items-center gap-2 text-sm">
-                        <CheckCircleIcon className="h-4 w-4 text-primary shrink-0" />{a}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center justify-center gap-2 bg-green-50 text-green-700 p-2 rounded-lg mb-4 text-xs font-medium">
-                    <GiftIcon className="h-3.5 w-3.5 shrink-0" />
-                    3 200 € offerts à l'ouverture
+                  {/* Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 ${offre.popular ? 'bg-primary' : 'bg-primary/10'}`}>
+                        <offre.Icon className={`h-4 w-4 ${offre.popular ? 'text-white' : 'text-primary'}`} />
+                      </div>
+                      <h4 className="text-base font-bold">{offre.titre}</h4>
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-4 flex-1">{offre.desc}</p>
+                    <ul className="space-y-1.5 mb-4">
+                      {offre.avantages.map((a) => (
+                        <li key={a} className="flex items-center gap-2 text-sm">
+                          <CheckCircleIcon className="h-4 w-4 text-primary shrink-0" />{a}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center gap-2 bg-green-50 text-green-700 p-2 rounded-lg mb-4 text-xs font-medium">
+                      <GiftIcon className="h-3.5 w-3.5 shrink-0" />
+                      Prime de 3 200 € après activation
+                    </div>
+                    <Link href={offre.href}>
+                      <Button className="w-full text-sm" variant={offre.popular ? "default" : "outline"}>
+                        Découvrir l'offre
+                      </Button>
+                    </Link>
                   </div>
-                  <Link href={offre.href}>
-                    <Button className={`w-full text-sm ${offre.popular ? "bg-primary hover:bg-primary/90 text-white" : ""}`} variant={offre.popular ? "default" : "outline"}>
-                      Découvrir l'offre
-                    </Button>
-                  </Link>
                 </div>
               ))}
             </div>
@@ -431,18 +435,25 @@ export function LandingPage() {
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { href: "/credits/pret-immobilier", Icon: HomeIcon, titre: "Prêt Immobilier", desc: "Financez l'acquisition de votre bien immobilier.", tag: "Dès 2,8 % annuel" },
-                { href: "/credits/pret-personnel", Icon: BanknotesIcon, titre: "Prêt Personnel", desc: "Tous vos projets financés rapidement, sans justificatif.", tag: "Réponse sous 24h" },
-                { href: "/credits/pret-auto", Icon: TruckIcon, titre: "Prêt Auto", desc: "Roulez maintenant, payez sereinement en mensualités fixes.", tag: "Jusqu'à 80 000 €" },
+                { href: "/credits/pret-immobilier", Icon: HomeIcon, titre: "Prêt Immobilier", desc: "Financez l'acquisition de votre bien immobilier.", tag: "Dès 2,8 % annuel", imageUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80&fit=crop" },
+                { href: "/credits/pret-personnel", Icon: BanknotesIcon, titre: "Prêt Personnel", desc: "Tous vos projets financés rapidement, sans justificatif.", tag: "Réponse sous 24h", imageUrl: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop" },
+                { href: "/credits/pret-auto", Icon: TruckIcon, titre: "Prêt Auto", desc: "Roulez maintenant, payez sereinement en mensualités fixes.", tag: "Jusqu'à 80 000 €", imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80&fit=crop" },
               ].map((c) => (
-                <Link key={c.href} href={c.href} className="group bg-card rounded-2xl p-7 border border-border flex flex-col hover:border-primary/30 hover:shadow-md transition-all duration-200">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                    <c.Icon className="h-6 w-6 text-primary" />
+                <Link key={c.href} href={c.href} className="group bg-card rounded-2xl border border-border overflow-hidden flex flex-col hover:border-primary/30 hover:shadow-md transition-all duration-200">
+                  <div className="h-44 overflow-hidden">
+                    <img src={c.imageUrl} alt={c.titre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <h4 className="text-xl font-bold mb-2">{c.titre}</h4>
-                  <p className="text-muted-foreground text-sm mb-4 flex-1">{c.desc}</p>
-                  <span className="inline-block text-xs font-semibold text-secondary bg-blue-50 px-3 py-1 rounded-full mb-4">{c.tag}</span>
-                  <span className="text-sm text-primary font-semibold group-hover:underline">En savoir plus →</span>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                        <c.Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <h4 className="text-lg font-bold">{c.titre}</h4>
+                    </div>
+                    <p className="text-muted-foreground text-sm mb-3 flex-1">{c.desc}</p>
+                    <span className="inline-block text-xs font-semibold text-secondary bg-blue-50 px-3 py-1 rounded-full mb-4 w-fit">{c.tag}</span>
+                    <span className="text-sm text-primary font-semibold group-hover:underline">En savoir plus →</span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -455,17 +466,22 @@ export function LandingPage() {
             </h3>
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
               {[
-                { href: "/assurances/assurance-vie", Icon: ShieldCheckIcon, titre: "Assurance Vie", desc: "Préparez l'avenir et protégez vos proches avec un placement à long terme avantageux sur le plan fiscal.", tag: "Capital garanti" },
-                { href: "/assurances/assurance-habitat", Icon: HomeModernIcon, titre: "Assurance Habitat", desc: "Couvrez votre logement contre tous les risques : incendie, dégât des eaux, vol et responsabilité civile.", tag: "Attestation immédiate" },
+                { href: "/assurances/assurance-vie", Icon: ShieldCheckIcon, titre: "Assurance Vie", desc: "Préparez l'avenir et protégez vos proches avec un placement à long terme avantageux.", tag: "Capital garanti", imageUrl: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80&fit=crop" },
+                { href: "/assurances/assurance-habitat", Icon: HomeModernIcon, titre: "Assurance Habitat", desc: "Couvrez votre logement contre tous les risques : incendie, dégât des eaux, vol.", tag: "Attestation immédiate", imageUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80&fit=crop" },
               ].map((a) => (
-                <Link key={a.href} href={a.href} className="group bg-card rounded-2xl p-7 border border-border flex gap-5 items-start hover:border-primary/30 hover:shadow-md transition-all duration-200">
-                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <a.Icon className="h-6 w-6 text-primary" />
+                <Link key={a.href} href={a.href} className="group bg-card rounded-2xl border border-border overflow-hidden flex flex-col hover:border-primary/30 hover:shadow-md transition-all duration-200">
+                  <div className="h-40 overflow-hidden">
+                    <img src={a.imageUrl} alt={a.titre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div>
-                    <h4 className="text-lg font-bold mb-1">{a.titre}</h4>
-                    <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{a.desc}</p>
-                    <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{a.tag}</span>
+                  <div className="p-6 flex gap-4">
+                    <div className="h-11 w-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors mt-0.5">
+                      <a.Icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold mb-1">{a.titre}</h4>
+                      <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{a.desc}</p>
+                      <span className="inline-block text-xs font-semibold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">{a.tag}</span>
+                    </div>
                   </div>
                 </Link>
               ))}
@@ -483,8 +499,8 @@ export function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               { n: "1", Icon: CreditCardIcon, title: "Je crée mon compte", desc: "Remplissez le formulaire en 2 minutes depuis n'importe quel appareil." },
-              { n: "2", Icon: LockClosedIcon, title: "Je vérifie mon identité", desc: "Déposez votre pièce d'identité en toute sécurité. Validation sous 24h." },
-              { n: "3", Icon: BanknotesIcon, title: "J'accède à mes fonds", desc: "Votre compte est activé et votre prime de 3 200 € est immédiatement disponible." },
+              { n: "2", Icon: LockClosedIcon, title: "Je vérifie mon identité", desc: "Déposez votre pièce d'identité en toute sécurité. Validation sous 24 à 48h." },
+              { n: "3", Icon: BanknotesIcon, title: "J'active mon compte", desc: "Compte activé et prime de bienvenue de 3 200 € créditée automatiquement." },
             ].map(({ n, Icon, title, desc }) => (
               <div key={n} className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center mb-4 text-2xl font-bold shadow-md">{n}</div>
@@ -526,7 +542,7 @@ export function LandingPage() {
           </div>
           <div className="mt-16 bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] rounded-2xl p-10 text-center max-w-4xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Rejoignez des milliers de clients satisfaits</h3>
-            <p className="text-white/80 mb-8">Ouvrez votre compte aujourd'hui et recevez 3 200 € sur votre solde dès l'activation.</p>
+            <p className="text-white/80 mb-8">Ouvrez votre compte aujourd'hui et recevez une prime de bienvenue de 3 200 € après activation.</p>
             <Link href="/register">
               <Button size="lg" className="bg-white text-[#1E3A8A] hover:bg-white/90 font-semibold h-12 px-8 rounded-full">
                 Ouvrir mon compte gratuitement
@@ -582,39 +598,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-[#1E3A8A] text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <p className="font-bold text-xl mb-3">NELLOA BANK</p>
-              <p className="text-white/60 text-sm leading-relaxed">La banque digitale qui vous fait confiance. Ouvrez votre compte en 3 minutes.</p>
-            </div>
-            {navMenus.map((m) => (
-              <div key={m.label}>
-                <p className="font-semibold text-sm mb-3 text-white/90">{m.label}</p>
-                <ul className="space-y-2">
-                  {m.items.map((item) => (
-                    <li key={item.href}>
-                      <Link href={item.href} className="text-white/60 text-sm hover:text-white transition-colors flex items-center gap-2">
-                        <item.Icon className="h-3.5 w-3.5 shrink-0" />{item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="border-t border-white/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/60 text-sm">© 2025 NELLOA BANK. Tous droits réservés.</p>
-            <div className="flex gap-6 text-sm text-white/60">
-              <a href="#" className="hover:text-white transition-colors">Mentions légales</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
-              <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
