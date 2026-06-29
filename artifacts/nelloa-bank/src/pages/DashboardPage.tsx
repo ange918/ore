@@ -124,7 +124,7 @@ export function DashboardPage() {
   return (
     <div className="min-h-[100dvh] bg-slate-50 flex flex-col">
       <header className="bg-white border-b border-border h-16 flex items-center px-4 md:px-8 justify-between shrink-0 sticky top-0 z-40">
-        <div className="font-bold text-xl text-primary">NELLOA BANK</div>
+        <div><img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-9 w-auto" /></div>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-foreground hidden md:inline-block">
             {user.firstName} {user.lastName}

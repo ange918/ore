@@ -215,7 +215,7 @@ export function LandingPage() {
       {/* HEADER */}
       <header className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-border">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-primary">NELLOA BANK</Link>
+          <Link href="/"><img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-9 w-auto" /></Link>
           <nav className="hidden lg:flex items-center gap-6">
             {navMenus.map((m) => <DropdownMenu key={m.label} label={m.label} items={m.items} />)}
             <a href="#pourquoi" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Pourquoi nous</a>
