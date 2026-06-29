@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "wouter";
 import { getSession, getUserById, clearSession, updateUser, User, BIC } from "@/lib/storage";
-import { Clock, UploadCloud, LogOut, CheckCircle2, Copy, Check, MessageCircle } from "lucide-react";
+import { Clock, UploadCloud, LogOut, CheckCircle2, Copy, Check, MessageCircle, ShieldX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -15,13 +15,13 @@ function CopyField({ label, value }: { label: string; value: string }) {
   };
   return (
     <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-border group hover:border-primary/30 transition-colors">
-      <div>
+      <div className="min-w-0 flex-1">
         <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
-        <p className="font-mono font-semibold text-sm text-foreground">{value}</p>
+        <p className="font-mono font-semibold text-sm text-foreground break-all">{value}</p>
       </div>
       <button
         onClick={handleCopy}
-        className="ml-3 p-2 rounded-lg hover:bg-primary/10 transition-colors text-muted-foreground hover:text-primary"
+        className="ml-3 p-2 rounded-lg hover:bg-primary/10 transition-colors text-muted-foreground hover:text-primary shrink-0"
         title="Copier"
       >
         {copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
@@ -33,28 +33,25 @@ function CopyField({ label, value }: { label: string; value: string }) {
 function BankCard({ user }: { user: User }) {
   const last4 = user.id.replace(/[^0-9]/g, '').slice(-4).padStart(4, '0');
   const accountLabels: Record<string, string> = {
-    personnel: 'Compte Personnel',
-    courant: 'Compte Courant',
-    premium: 'Compte Premium',
-    epargne: 'Compte Épargne',
+    personnel: 'Personnel',
+    courant: 'Courant',
+    premium: 'Premium',
+    epargne: 'Épargne',
   };
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-sm h-[190px] rounded-2xl relative overflow-hidden shadow-lg select-none"
+      className="w-full h-[180px] rounded-2xl relative overflow-hidden shadow-lg select-none"
       style={{ background: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 60%, #3B82F6 100%)' }}
     >
-      {/* Background circles */}
       <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/5" />
       <div className="absolute -bottom-12 -left-6 w-52 h-52 rounded-full bg-white/5" />
 
       <div className="relative z-10 h-full flex flex-col justify-between p-5">
-        {/* Top row */}
         <div className="flex justify-between items-start">
           <span className="text-white font-bold text-sm tracking-wide">NELLOA BANK</span>
-          {/* Chip */}
           <div className="w-9 h-6 bg-yellow-300/80 rounded-md flex items-center justify-center border border-yellow-500/30">
             <div className="w-6 h-3.5 border border-yellow-600/40 rounded-sm grid grid-cols-2">
               <div className="border-r border-yellow-600/40" />
@@ -62,17 +59,15 @@ function BankCard({ user }: { user: User }) {
           </div>
         </div>
 
-        {/* Card number */}
         <div>
           <p className="text-white/50 text-[10px] uppercase tracking-widest mb-1">Numéro de carte</p>
-          <p className="text-white font-mono text-base tracking-widest">•••• •••• •••• {last4}</p>
+          <p className="text-white font-mono text-sm tracking-widest">•••• •••• •••• {last4}</p>
         </div>
 
-        {/* Bottom row */}
         <div className="flex justify-between items-end">
           <div>
             <p className="text-white/50 text-[10px] uppercase tracking-wider mb-0.5">Titulaire</p>
-            <p className="text-white font-semibold text-sm uppercase tracking-wide">
+            <p className="text-white font-semibold text-xs uppercase tracking-wide">
               {user.firstName} {user.lastName}
             </p>
             <div className="flex gap-3 mt-1">
@@ -90,6 +85,34 @@ function BankCard({ user }: { user: User }) {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function BlockedOverlay() {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 text-center"
+      >
+        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-5">
+          <ShieldX className="h-8 w-8 text-red-600" />
+        </div>
+        <h2 className="text-xl font-bold text-foreground mb-2">Compte bloqué</h2>
+        <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
+          Votre compte a été temporairement bloqué par notre équipe. Veuillez contacter le support pour plus d'informations.
+        </p>
+        <Button
+          className="w-full gap-2"
+          onClick={() => window.open('mailto:support@nelloabank.com')}
+        >
+          <MessageCircle className="h-4 w-4" />
+          Contacter le support
+        </Button>
+      </motion.div>
+    </div>
   );
 }
 
@@ -124,48 +147,25 @@ export function DashboardPage() {
 
   return (
     <div className="min-h-[100dvh] bg-slate-50 flex flex-col">
+      {/* Blocking overlay for suspended accounts */}
+      {user.status === 'blocked' && <BlockedOverlay />}
+
       <header className="bg-white border-b border-border h-16 flex items-center px-4 md:px-8 justify-between shrink-0 sticky top-0 z-40">
         <div><img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-9 w-auto" /></div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <span className="text-sm font-medium text-foreground hidden md:inline-block">
             {user.firstName} {user.lastName}
           </span>
           <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground hover:text-destructive">
-            <LogOut className="h-4 w-4 mr-2" />
-            Déconnexion
+            <LogOut className="h-4 w-4 mr-1 md:mr-2" />
+            <span className="hidden sm:inline">Déconnexion</span>
           </Button>
         </div>
       </header>
 
-      {/* ── Blocked banner — full width ── */}
-      {user.status === 'blocked' && (
-        <div className="bg-amber-50 border-b-2 border-amber-300 px-4 py-3">
-          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
-            <div className="flex items-start gap-3">
-              <Clock className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-semibold text-amber-900 text-sm">Compte en cours de validation</p>
-                <p className="text-amber-700 text-xs mt-0.5">
-                  Votre dossier est examiné par notre équipe. La prime de bienvenue de 3 200 € sera créditée automatiquement après activation. Soumettez votre pièce d'identité ci-dessous pour accélérer la validation.
-                </p>
-              </div>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              className="border-amber-400 text-amber-800 hover:bg-amber-100 shrink-0 gap-2"
-              onClick={() => window.open('mailto:support@nelloabank.com')}
-            >
-              <MessageCircle className="h-4 w-4" />
-              Contacter le support
-            </Button>
-          </div>
-        </div>
-      )}
+      <main className="flex-1 max-w-5xl w-full mx-auto p-3 md:p-8">
 
-      <main className="flex-1 max-w-5xl w-full mx-auto p-4 md:p-8">
-
-        {user.status === 'blocked' ? (
+        {user.status === 'pending' ? (
           <div className="mt-6 space-y-6 max-w-2xl mx-auto">
 
             {/* KYC rejected alert */}
@@ -179,6 +179,23 @@ export function DashboardPage() {
               </div>
             )}
 
+            {/* Banner */}
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
+              <div className="flex items-start gap-3">
+                <Clock className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-amber-900 text-sm">Compte en cours de validation</p>
+                  <p className="text-amber-700 text-xs mt-0.5">
+                    Votre dossier est examiné par notre équipe. La prime de bienvenue de 3 200 € sera créditée après activation.
+                  </p>
+                </div>
+              </div>
+              <Button size="sm" variant="outline" className="border-amber-400 text-amber-800 hover:bg-amber-100 shrink-0 gap-2" onClick={() => window.open('mailto:support@nelloabank.com')}>
+                <MessageCircle className="h-4 w-4" />
+                Support
+              </Button>
+            </div>
+
             {/* Success message */}
             {showSuccessMsg && (
               <div className="bg-green-50 text-green-700 p-4 rounded-xl border border-green-200 flex items-start gap-3 animate-in fade-in">
@@ -191,59 +208,59 @@ export function DashboardPage() {
             )}
 
             {/* Upload zone */}
-            <div className="bg-white border border-border rounded-2xl p-8 shadow-sm">
+            <div className="bg-white border border-border rounded-2xl p-6 md:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
                   <Clock className="h-6 w-6 text-amber-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">Vérification d'identité requise</h2>
-                  <p className="text-muted-foreground text-sm">Soumettez votre pièce d'identité pour activer votre compte et débloquer votre prime de bienvenue de 3 200 €.</p>
+                  <h2 className="text-lg md:text-xl font-bold">Vérification d'identité requise</h2>
+                  <p className="text-muted-foreground text-sm">Soumettez votre pièce d'identité pour activer votre compte et débloquer votre prime de 3 200 €.</p>
                 </div>
               </div>
 
               {!showSuccessMsg && (
                 <div
-                  className="border-2 border-dashed border-primary/30 rounded-xl p-10 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer group text-center"
+                  className="border-2 border-dashed border-primary/30 rounded-xl p-8 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer group text-center"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <input type="file" className="hidden" ref={fileInputRef} accept=".jpg,.png,.pdf" onChange={handleUploadDocument} />
                   <UploadCloud className="h-10 w-10 text-primary/50 mx-auto mb-4 group-hover:text-primary transition-colors" />
-                  <p className="font-medium text-foreground mb-2">Glissez votre pièce d'identité ici ou cliquez pour parcourir</p>
+                  <p className="font-medium text-foreground mb-2 text-sm md:text-base">Glissez votre pièce d'identité ici ou cliquez pour parcourir</p>
                   <p className="text-sm text-muted-foreground">Formats acceptés : JPG, PNG, PDF — Max 10 Mo</p>
                 </div>
               )}
             </div>
           </div>
         ) : (
-          <div className="space-y-8 animate-in fade-in duration-500 mt-4">
+          <div className="space-y-6 animate-in fade-in duration-500 mt-4">
             {/* Welcome */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">Bienvenue, {user.firstName} 👋</h1>
-                <p className="text-muted-foreground">Gérez vos finances en toute simplicité.</p>
+                <h1 className="text-2xl md:text-4xl font-bold mb-1">Bienvenue, {user.firstName} 👋</h1>
+                <p className="text-muted-foreground text-sm">Gérez vos finances en toute simplicité.</p>
               </div>
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold text-sm">
+              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-semibold text-sm self-start sm:self-auto">
                 <CheckCircle2 className="h-4 w-4" />
                 Compte actif
               </div>
             </div>
 
             {/* Main grid */}
-            <div className="grid lg:grid-cols-5 gap-6">
+            <div className="grid lg:grid-cols-5 gap-4 md:gap-6">
               {/* Left: balance card + card visual */}
-              <div className="lg:col-span-3 space-y-6">
+              <div className="lg:col-span-3 space-y-4">
                 {/* Balance */}
-                <div className="bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-white rounded-2xl p-7 shadow-lg relative overflow-hidden">
+                <div className="bg-gradient-to-br from-[#1E3A8A] to-[#3B82F6] text-white rounded-2xl p-5 md:p-7 shadow-lg relative overflow-hidden">
                   <div className="absolute top-0 right-0 opacity-10">
                     <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
                   </div>
                   <div className="relative z-10">
-                    <p className="text-white/70 text-sm font-medium mb-1 capitalize">Solde disponible</p>
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6">{balanceFmt}</h2>
-                    <div className="flex gap-3 flex-wrap">
-                      <Button className="bg-white text-primary hover:bg-white/90 font-semibold">Faire un virement</Button>
-                      <Button variant="outline" className="text-white border-white/30 hover:bg-white/10 hover:text-white">Relevé</Button>
+                    <p className="text-white/70 text-sm font-medium mb-1">Solde disponible</p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-5 break-all">{balanceFmt}</h2>
+                    <div className="flex gap-2 flex-wrap">
+                      <Button className="bg-white text-primary hover:bg-white/90 font-semibold text-sm">Faire un virement</Button>
+                      <Button variant="outline" className="text-white border-white/30 hover:bg-white/10 hover:text-white text-sm">Relevé</Button>
                     </div>
                   </div>
                 </div>
@@ -254,28 +271,28 @@ export function DashboardPage() {
 
               {/* Right: IBAN + infos */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="bg-white border border-border rounded-2xl p-6 shadow-sm space-y-4">
-                  <h3 className="font-bold text-lg text-foreground">Coordonnées bancaires</h3>
+                <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-sm space-y-3">
+                  <h3 className="font-bold text-base md:text-lg text-foreground">Coordonnées bancaires</h3>
                   <CopyField label="IBAN" value={user.iban} />
                   <CopyField label="BIC / SWIFT" value={BIC} />
                 </div>
 
-                <div className="bg-white border border-border rounded-2xl p-6 shadow-sm">
-                  <h3 className="font-bold text-lg text-foreground mb-4">Mon compte</h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between">
+                <div className="bg-white border border-border rounded-2xl p-4 md:p-6 shadow-sm">
+                  <h3 className="font-bold text-base md:text-lg text-foreground mb-3">Mon compte</h3>
+                  <div className="space-y-2.5 text-sm">
+                    <div className="flex justify-between gap-2">
                       <span className="text-muted-foreground">Type</span>
-                      <span className="font-semibold capitalize">{user.accountType}</span>
+                      <span className="font-semibold capitalize text-right">{user.accountType}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-muted-foreground">Ouvert le</span>
-                      <span className="font-semibold">{new Date(user.createdAt).toLocaleDateString('fr-FR')}</span>
+                      <span className="font-semibold text-right">{new Date(user.createdAt).toLocaleDateString('fr-FR')}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-muted-foreground">KYC</span>
                       <span className="font-semibold text-green-600">Vérifié ✓</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between gap-2">
                       <span className="text-muted-foreground">Devise</span>
                       <span className="font-semibold">{user.currency}</span>
                     </div>

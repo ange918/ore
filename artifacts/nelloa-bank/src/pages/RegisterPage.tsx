@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
-import { CreditCard, Building, Star, CheckCircle2, PiggyBank } from "lucide-react";
+import { CreditCard, Building, Star, CheckCircle2, PiggyBank, UploadCloud, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/ui/input";
@@ -85,6 +85,8 @@ export function RegisterPage() {
   const [step, setStep] = useState(1);
   const [accountType, setAccountType] = useState<AccountType>('courant');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [idFile, setIdFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -214,6 +216,38 @@ export function RegisterPage() {
                         <FormField control={form.control} name="idNumber" render={({ field }) => (
                           <FormItem className="md:col-span-2"><FormLabel>Numéro de pièce d'identité (CNI ou Passeport)</FormLabel><FormControl><Input placeholder="Ex : 123456789012" {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
+                      </div>
+
+                      {/* ID document upload */}
+                      <div className="mt-4">
+                        <p className="text-sm font-medium mb-2">
+                          Photo de la pièce d'identité <span className="text-muted-foreground font-normal">(recto)</span>
+                        </p>
+                        {idFile ? (
+                          <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-xl">
+                            <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+                            <span className="text-sm text-green-800 font-medium truncate flex-1">{idFile.name}</span>
+                            <button type="button" onClick={() => setIdFile(null)} className="text-muted-foreground hover:text-destructive">
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+                        ) : (
+                          <div
+                            onClick={() => fileInputRef.current?.click()}
+                            className="border-2 border-dashed border-primary/30 rounded-xl p-6 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer group text-center"
+                          >
+                            <input
+                              type="file"
+                              ref={fileInputRef}
+                              className="hidden"
+                              accept=".jpg,.jpeg,.png,.pdf"
+                              onChange={(e) => setIdFile(e.target.files?.[0] ?? null)}
+                            />
+                            <UploadCloud className="h-8 w-8 text-primary/40 mx-auto mb-2 group-hover:text-primary transition-colors" />
+                            <p className="text-sm font-medium text-foreground">Cliquez pour uploader votre pièce d'identité</p>
+                            <p className="text-xs text-muted-foreground mt-1">JPG, PNG, PDF — Max 10 Mo</p>
+                          </div>
+                        )}
                       </div>
                     </div>
 

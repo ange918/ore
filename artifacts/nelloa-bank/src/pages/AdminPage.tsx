@@ -152,7 +152,16 @@ export function AdminPage() {
   const handleReject = async () => {
     if (!selectedUser) return;
     setSaving(true);
-    await updateUser(selectedUser.id, { status: 'blocked', kycStatus: 'rejected' });
+    await updateUser(selectedUser.id, { status: 'pending', kycStatus: 'rejected' });
+    setIsModalOpen(false);
+    await loadUsers();
+    setSaving(false);
+  };
+
+  const handleBlock = async () => {
+    if (!selectedUser) return;
+    setSaving(true);
+    await updateUser(selectedUser.id, { status: 'blocked' });
     setIsModalOpen(false);
     await loadUsers();
     setSaving(false);
@@ -388,12 +397,17 @@ export function AdminPage() {
               </section>
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-border">
-                <Button onClick={handleApprove} disabled={saving} className="flex-1 bg-green-600 hover:bg-green-700 text-white">
-                  ✅ Approuver et activer
-                </Button>
-                <Button onClick={handleReject} disabled={saving} variant="outline" className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200">
-                  ❌ Rejeter le dossier
+              <div className="flex flex-col gap-3 pt-2 border-t border-border">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button onClick={handleApprove} disabled={saving} className="flex-1 bg-green-600 hover:bg-green-700 text-white">
+                    ✅ Approuver et activer
+                  </Button>
+                  <Button onClick={handleReject} disabled={saving} variant="outline" className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200">
+                    ❌ Rejeter le dossier
+                  </Button>
+                </div>
+                <Button onClick={handleBlock} disabled={saving} variant="outline" className="w-full text-orange-600 hover:bg-orange-50 hover:text-orange-700 border-orange-200">
+                  🔒 Bloquer le compte
                 </Button>
               </div>
             </div>
