@@ -15,13 +15,12 @@ export function LoginPage() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
-
-    setTimeout(() => {
-      const user = getUserByEmail(email);
+    try {
+      const user = await getUserByEmail(email);
       if (user && user.password === password) {
         setSession(user.id);
         setLocation("/dashboard");
@@ -29,7 +28,10 @@ export function LoginPage() {
         setError("Email ou mot de passe incorrect");
         setIsLoading(false);
       }
-    }, 500);
+    } catch {
+      setError("Erreur de connexion, réessayez.");
+      setIsLoading(false);
+    }
   };
 
   return (
