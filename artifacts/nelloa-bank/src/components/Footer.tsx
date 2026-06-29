@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Phone, Mail } from "lucide-react";
 
 export function Footer() {
   return (
@@ -12,10 +13,18 @@ export function Footer() {
             <p className="text-white/50 text-sm leading-relaxed mb-3">
               La banque digitale qui vous fait confiance. Ouvrez votre compte en 3 minutes, 100 % en ligne.
             </p>
-            <p className="text-white/40 text-xs leading-relaxed">
+            <p className="text-white/40 text-xs leading-relaxed mb-3">
               LIBRE REPONSE 8975975443<br />
               PARIS CEDEX 09
             </p>
+            <a href="tel:+33670858930" className="flex items-center gap-2 text-white/50 text-sm hover:text-white transition-colors mb-1.5">
+              <Phone className="h-3.5 w-3.5 shrink-0" />
+              +33 6 70 85 89 30
+            </a>
+            <a href="mailto:contact@nelloabank.com" className="flex items-center gap-2 text-white/50 text-sm hover:text-white transition-colors">
+              <Mail className="h-3.5 w-3.5 shrink-0" />
+              contact@nelloabank.com
+            </a>
           </div>
 
           <div>
@@ -24,7 +33,7 @@ export function Footer() {
               <li><Link href="/" className="text-white/50 text-sm hover:text-white transition-colors">Accueil</Link></li>
               <li><a href="/#offres" className="text-white/50 text-sm hover:text-white transition-colors">Nos offres</a></li>
               <li><a href="/#faq" className="text-white/50 text-sm hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">Contact</a></li>
+              <li><a href="mailto:contact@nelloabank.com" className="text-white/50 text-sm hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
 

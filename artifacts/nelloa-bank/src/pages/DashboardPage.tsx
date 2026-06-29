@@ -111,6 +111,9 @@ function BlockedOverlay() {
           <MessageCircle className="h-4 w-4" />
           Contacter le support
         </Button>
+        <p className="text-muted-foreground text-xs mt-4">
+          +33 6 70 85 89 30 · contact@nelloabank.com
+        </p>
       </motion.div>
     </div>
   );
