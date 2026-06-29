@@ -106,7 +106,7 @@ function BlockedOverlay() {
         </p>
         <Button
           className="w-full gap-2"
-          onClick={() => window.open('mailto:support@nelloabank.com')}
+          onClick={() => window.open('mailto:contact@nelloabank.com')}
         >
           <MessageCircle className="h-4 w-4" />
           Contacter le support
@@ -190,7 +190,7 @@ export function DashboardPage() {
                   </p>
                 </div>
               </div>
-              <Button size="sm" variant="outline" className="border-amber-400 text-amber-800 hover:bg-amber-100 shrink-0 gap-2" onClick={() => window.open('mailto:support@nelloabank.com')}>
+              <Button size="sm" variant="outline" className="border-amber-400 text-amber-800 hover:bg-amber-100 shrink-0 gap-2" onClick={() => window.open('mailto:contact@nelloabank.com')}>
                 <MessageCircle className="h-4 w-4" />
                 Support
               </Button>
