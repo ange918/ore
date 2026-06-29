@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export function LoginPage() {
   const [, setLocation] = useLocation();
@@ -32,13 +33,12 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex items-center justify-center bg-slate-50 p-4">
+    <div className="min-h-[100dvh] flex flex-col bg-slate-50">
+      <Header />
+      <div className="flex-1 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
         <div className="p-8 sm:p-12">
           <div className="text-center mb-8">
-            <Link href="/" className="inline-block mb-2">
-              <img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-10 w-auto mx-auto" />
-            </Link>
             <h1 className="text-2xl font-semibold text-foreground">Connexion à votre espace</h1>
           </div>
 
@@ -96,6 +96,7 @@ export function LoginPage() {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

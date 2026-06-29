@@ -7,6 +7,7 @@ import {
   Gift, Headphones, Lock, Star, Smartphone,
 } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import type { ComponentType, SVGProps } from "react";
 import {
   CreditCardIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon,
@@ -247,20 +248,7 @@ export function OffrePage({ slug }: { slug: string }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
 
-      {/* ── HEADER ── */}
-      <header className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-border">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="font-bold text-xl text-primary">NELLOA BANK</Link>
-          <div className="flex items-center gap-3">
-            <Link href="/login">
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">Connexion</Button>
-            </Link>
-            <Link href={registerHref}>
-              <Button className="bg-primary text-white hover:bg-primary/90">{offre.cta}</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* ── HERO ── */}
       <section className={`bg-gradient-to-br ${offre.couleur}`}>
