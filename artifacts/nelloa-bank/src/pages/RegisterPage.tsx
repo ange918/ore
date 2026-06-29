@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { v4 as uuidv4 } from "uuid";
 import { CreditCard, Building, Star, CheckCircle2, PiggyBank } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/Header";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { saveUsers, getUsers, setSession, getUserByEmail, generateIban, BIC } from "@/lib/storage";
@@ -173,9 +174,7 @@ export function RegisterPage() {
 
   return (
     <div className="min-h-[100dvh] bg-slate-50 flex flex-col">
-      <header className="bg-white shadow-sm h-16 flex items-center px-4 md:px-8 shrink-0">
-        <Link href="/"><img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-9 w-auto" /></Link>
-      </header>
+      <Header />
 
       <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-3xl">
