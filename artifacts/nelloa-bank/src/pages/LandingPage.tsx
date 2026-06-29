@@ -7,6 +7,15 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
 import {
+  CreditCardIcon,
+  BuildingOffice2Icon,
+  HomeIcon,
+  HomeModernIcon,
+  BanknotesIcon,
+  TruckIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+  ArrowTrendingUpIcon,
   GiftIcon,
   LockClosedIcon,
   BoltIcon,
