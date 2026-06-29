@@ -28,6 +28,18 @@ function DetailRow({ label, value }: { label: string; value?: string }) {
   );
 }
 
+function StatusBadge({ status }: { status: User['status'] }) {
+  if (status === 'active') return <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">Actif</Badge>;
+  if (status === 'blocked') return <Badge className="bg-red-100 text-red-800 hover:bg-red-100 border-none">Bloqué</Badge>;
+  return <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-100 border-none">En attente</Badge>;
+}
+
+function KycBadge({ status }: { status: User['kycStatus'] }) {
+  if (status === 'verified') return <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">Vérifié</Badge>;
+  if (status === 'rejected') return <Badge className="bg-red-100 text-red-800 hover:bg-red-100 border-none">Refusé</Badge>;
+  return <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100 border-none">En attente</Badge>;
+}
+
 function UserTable({
   users,
   onSelect,
@@ -43,7 +55,34 @@ function UserTable({
     );
   }
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* Mobile: card list */}
+      <div className="md:hidden divide-y divide-border">
+        {users.map((u) => (
+          <div key={u.id} className="p-4 space-y-3">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="font-semibold text-sm">{u.firstName} {u.lastName}</p>
+                <p className="text-xs text-muted-foreground break-all">{u.email}</p>
+              </div>
+              <StatusBadge status={u.status} />
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-muted-foreground">{accountTypeLabel[u.accountType] ?? u.accountType}</span>
+              <span className="text-muted-foreground">·</span>
+              <KycBadge status={u.kycStatus} />
+              <span className="text-muted-foreground">·</span>
+              <span className="text-xs text-muted-foreground">{new Date(u.createdAt).toLocaleDateString('fr-FR')}</span>
+            </div>
+            <Button variant="outline" size="sm" className="w-full" onClick={() => onSelect(u)}>
+              Voir le dossier
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden md:block overflow-x-auto">
       <table className="w-full text-sm text-left">
         <thead className="bg-slate-50 text-muted-foreground uppercase text-xs">
           <tr>
@@ -62,16 +101,8 @@ function UserTable({
               <td className="px-5 py-4 font-medium">{u.firstName} {u.lastName}</td>
               <td className="px-5 py-4 text-muted-foreground">{u.email}</td>
               <td className="px-5 py-4">{accountTypeLabel[u.accountType] ?? u.accountType}</td>
-              <td className="px-5 py-4">
-                {u.kycStatus === 'pending' && <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-100 border-none">En attente</Badge>}
-                {u.kycStatus === 'verified' && <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">Vérifié</Badge>}
-                {u.kycStatus === 'rejected' && <Badge className="bg-red-100 text-red-800 hover:bg-red-100 border-none">Refusé</Badge>}
-              </td>
-              <td className="px-5 py-4">
-                {u.status === 'active' && <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-none">Actif</Badge>}
-                {u.status === 'blocked' && <Badge className="bg-red-100 text-red-800 hover:bg-red-100 border-none">Bloqué</Badge>}
-                {u.status === 'pending' && <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-100 border-none">En attente</Badge>}
-              </td>
+              <td className="px-5 py-4"><KycBadge status={u.kycStatus} /></td>
+              <td className="px-5 py-4"><StatusBadge status={u.status} /></td>
               <td className="px-5 py-4 text-muted-foreground">{new Date(u.createdAt).toLocaleDateString('fr-FR')}</td>
               <td className="px-5 py-4 text-right">
                 <Button variant="outline" size="sm" onClick={() => onSelect(u)}>
@@ -82,7 +113,8 @@ function UserTable({
           ))}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   );
 }
 
@@ -224,7 +256,7 @@ export function AdminPage() {
       <main className="flex-1 p-6 md:p-10 max-w-[1400px] w-full mx-auto space-y-6">
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white border border-border rounded-xl p-5 flex items-center gap-4">
             <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center shrink-0">
               <Users className="h-5 w-5 text-slate-600" />
