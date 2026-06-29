@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { saveUsers, getUsers, setSession, getUserByEmail, generateIban, BIC } from "@/lib/storage";
+import { createUser, setSession, getUserByEmail, generateIban, BIC } from "@/lib/storage";
 import { Badge } from "@/components/ui/badge";
 
 const infoSchema = z.object({
@@ -111,9 +111,9 @@ export function RegisterPage() {
     setStep(2);
   };
 
-  const handleFinalSubmit = () => {
+  const handleFinalSubmit = async () => {
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
       const data = form.getValues();
       const id = uuidv4();
       const iban = generateIban(id);
@@ -134,34 +134,22 @@ export function RegisterPage() {
         email: data.email,
         password: data.password,
         accountType,
-        balance: 3200,
+        balance: 0,
         currency: 'EUR',
-        status: 'blocked' as const,
+        status: 'pending' as const,
         kycStatus: 'pending' as const,
         createdAt: new Date().toISOString(),
         iban,
         bic: BIC,
       };
 
-      const users = getUsers();
-      users.push(newUser);
-      saveUsers(users);
-
-      fetch('/api/notify-admin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: data.firstName, lastName: data.lastName, email: data.email,
-          phone: data.phone, accountType, createdAt: newUser.createdAt,
-          birthDate: data.birthDate, nationality: data.nationality, idNumber: data.idNumber,
-          address: data.address, postalBox: data.postalBox,
-          city: data.city, postalCode: data.postalCode, country: data.country,
-        }),
-      }).catch(() => {});
-
+      await createUser(newUser);
       setSession(id);
       setLocation('/dashboard');
-    }, 1500);
+    } catch (err) {
+      console.error(err);
+      setIsSubmitting(false);
+    }
   };
 
   const values = form.getValues();

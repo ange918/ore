@@ -102,16 +102,17 @@ export function DashboardPage() {
   useEffect(() => {
     const sessionId = getSession();
     if (!sessionId) { setLocation("/login"); return; }
-    const userData = getUserById(sessionId);
-    if (!userData) { clearSession(); setLocation("/login"); return; }
-    setUser(userData);
+    getUserById(sessionId).then(userData => {
+      if (!userData) { clearSession(); setLocation("/login"); return; }
+      setUser(userData);
+    });
   }, [setLocation]);
 
   const handleLogout = () => { clearSession(); setLocation("/login"); };
 
-  const handleUploadDocument = () => {
+  const handleUploadDocument = async () => {
     if (!user) return;
-    updateUser(user.id, { kycStatus: 'pending' });
+    await updateUser(user.id, { kycStatus: 'pending' });
     setUser({ ...user, kycStatus: 'pending' });
     setShowSuccessMsg(true);
     setTimeout(() => setShowSuccessMsg(false), 5000);
