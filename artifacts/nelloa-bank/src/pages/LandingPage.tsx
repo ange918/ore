@@ -27,14 +27,14 @@ import {
 /* ── DATA ─────────────────────────────────────────────── */
 
 const testimonials = [
-  { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et la prime de bienvenue est bien créditée après activation. Je recommande !", initials: "AD" },
+  { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et le service client est excellent. Je recommande !", initials: "AD" },
   { name: "Sophie Martin", role: "Freelance Designer", text: "Le tableau de bord est clair et intuitif. Fini les frais cachés, fini les longues attentes. Mon compte courant NELLOA m'a simplifié la vie au quotidien.", initials: "SM" },
   { name: "Kouassi Bamba", role: "Responsable commercial", text: "Le compte Premium vaut vraiment son nom. Mon conseiller dédié répond en moins d'une heure et le cashback 2 % m'a fait économiser plusieurs centaines d'euros.", initials: "KB" },
 ];
 
 const faqs = [
   { question: "Combien de temps faut-il pour ouvrir un compte ?", answer: "L'ouverture de votre compte prend moins de 3 minutes. Remplissez le formulaire en ligne, déposez votre pièce d'identité, et notre équipe active votre compte sous 24 à 48h." },
-  { question: "Quand est créditée la prime de bienvenue de 3 200 € ?", answer: "La prime de bienvenue de 3 200 € est créditée automatiquement après activation de votre compte par notre équipe, suite à la vérification de votre dossier (sous 24 à 48h)." },
+  { question: "Combien de temps pour activer mon compte ?", answer: "Votre compte est activé sous 24 à 48h après vérification de votre dossier par notre équipe." },
   { question: "Quels documents sont nécessaires pour la vérification d'identité ?", answer: "Nous acceptons les cartes nationales d'identité, passeports et titres de séjour en cours de validité. Les fichiers acceptés sont JPG, PNG et PDF (max 10 Mo)." },
   { question: "Mon argent est-il en sécurité chez NELLOA BANK ?", answer: "Oui, absolument. NELLOA BANK utilise un chiffrement bancaire de niveau militaire (SSL 256 bits) et une authentification à deux facteurs pour protéger votre compte." },
   { question: "Puis-je changer de type de compte après l'ouverture ?", answer: "Oui. Vous pouvez faire une demande de changement de formule depuis votre espace client ou en contactant notre service client. La transition se fait sans interruption de service." },
@@ -158,7 +158,7 @@ export function LandingPage() {
                 La banque qui vous fait confiance
               </h1>
               <p className="text-lg md:text-xl text-white/85 mb-10 max-w-xl lg:max-w-none">
-                Ouvrez votre compte en 3 minutes. Bénéficiez d'une prime de bienvenue de 3 200 € créditée après activation et d'un accès immédiat à tous nos services.
+                Ouvrez votre compte en 3 minutes et bénéficiez d'un accès immédiat à tous nos services bancaires, 100 % en ligne.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href="/register">
@@ -308,10 +308,6 @@ export function LandingPage() {
                         </li>
                       ))}
                     </ul>
-                    <div className="flex items-center gap-2 bg-green-50 text-green-700 p-2 rounded-lg mb-4 text-xs font-medium">
-                      <GiftIcon className="h-3.5 w-3.5 shrink-0" />
-                      Prime de 3 200 € après activation
-                    </div>
                     <Link href={offre.href}>
                       <Button className="w-full text-sm" variant={offre.popular ? "default" : "outline"}>
                         Découvrir l'offre
@@ -395,7 +391,7 @@ export function LandingPage() {
             {[
               { n: "1", Icon: CreditCardIcon, title: "Je crée mon compte", desc: "Remplissez le formulaire en 2 minutes depuis n'importe quel appareil." },
               { n: "2", Icon: LockClosedIcon, title: "Je vérifie mon identité", desc: "Déposez votre pièce d'identité en toute sécurité. Validation sous 24 à 48h." },
-              { n: "3", Icon: BanknotesIcon, title: "J'active mon compte", desc: "Compte activé et prime de bienvenue de 3 200 € créditée automatiquement." },
+              { n: "3", Icon: BanknotesIcon, title: "J'active mon compte", desc: "Notre équipe valide votre dossier et active votre compte sous 24 à 48h." },
             ].map(({ n, Icon, title, desc }) => (
               <div key={n} className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center mb-4 text-2xl font-bold shadow-md">{n}</div>
@@ -437,7 +433,7 @@ export function LandingPage() {
           </div>
           <div className="mt-16 bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] rounded-2xl p-10 text-center max-w-4xl mx-auto">
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Rejoignez des milliers de clients satisfaits</h3>
-            <p className="text-white/80 mb-8">Ouvrez votre compte aujourd'hui et recevez une prime de bienvenue de 3 200 € après activation.</p>
+            <p className="text-white/80 mb-8">Ouvrez votre compte aujourd'hui et accédez immédiatement à tous nos services bancaires en ligne.</p>
             <Link href="/register">
               <Button size="lg" className="bg-white text-[#1E3A8A] hover:bg-white/90 font-semibold h-12 px-8 rounded-full">
                 Ouvrir mon compte gratuitement
