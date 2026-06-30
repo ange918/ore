@@ -53,7 +53,7 @@ const PRICING = [
 ];
 
 const ADVANTAGES = [
-  { Icon: Gift, title: "Offre de bienvenue", desc: "Prime de 3 200 € créditée automatiquement après activation de votre compte." },
+  { Icon: Gift, title: "Offre de bienvenue", desc: "Offre exclusive réservée à nos nouveaux clients après activation du compte." },
   { Icon: Headphones, title: "Assistance clientèle", desc: "Disponible 7j/7 par chat, email et téléphone." },
   { Icon: Lock, title: "Sécurité maximale", desc: "Authentification 2FA, chiffrement SSL 256 bits, surveillance 24h/24." },
   { Icon: Star, title: "Engagement de qualité", desc: "Réponse garantie sous 24h à toutes vos demandes." },
@@ -71,7 +71,7 @@ const ELIGIBILITY = [
 const OFFRE_FAQ = [
   { question: "Combien de temps prend l'ouverture d'un compte ?", answer: "En général 24 à 48h après réception de votre dossier complet. Notre équipe traite les demandes dans les meilleurs délais." },
   { question: "Puis-je ouvrir un compte depuis l'étranger ?", answer: "Oui, NELLOA BANK accepte les résidents étrangers. La procédure est entièrement en ligne et accessible depuis n'importe quel pays." },
-  { question: "Quand est créditée la prime de bienvenue ?", answer: "La prime de 3 200 € est créditée dès l'activation de votre compte par notre équipe de conformité, soit sous 24 à 48h après réception de votre dossier complet." },
+  { question: "Combien de temps pour activer mon compte ?", answer: "Votre compte est activé sous 24 à 48h après réception de votre dossier complet par notre équipe de conformité." },
   { question: "Y a-t-il des frais cachés ?", answer: "Non, tous nos tarifs sont affichés transparemment dans la section Nos Tarifs. Aucune surprise, aucun frais masqué." },
   { question: "Comment contacter le support ?", answer: "Via le chat en ligne (disponible 24h/24), par email à contact@nelloabank.com, ou par téléphone au +33 6 70 85 89 30 du lundi au samedi de 8h à 20h." },
 ];
@@ -86,7 +86,6 @@ const offres: Record<string, OffreData> = {
     sousTitre: "L'essentiel pour vos dépenses quotidiennes",
     description: "Le Compte Personnel NELLOA BANK est conçu pour vous offrir une gestion simple et efficace de vos finances du quotidien. Profitez d'un IBAN personnel, d'une carte virtuelle sécurisée et d'un suivi détaillé de vos dépenses — le tout depuis votre espace en ligne.",
     avantages: ["IBAN personnel dédié", "Carte virtuelle Visa incluse", "Suivi des dépenses en temps réel", "Virements SEPA gratuits", "Application mobile intuitive", "Notifications instantanées"],
-    prime: "Prime de bienvenue de 3 200 € après activation",
     cta: "Ouvrir un Compte Personnel",
     couleur: "from-[#1E3A8A] to-[#3B82F6]",
     Icon: CreditCardIcon,
@@ -100,7 +99,6 @@ const offres: Record<string, OffreData> = {
     sousTitre: "La solution bancaire pour les professionnels et entrepreneurs",
     description: "Le Compte Business NELLOA BANK est taillé pour les indépendants, auto-entrepreneurs et PME qui souhaitent séparer leurs finances professionnelles et bénéficier d'outils dédiés à la gestion d'entreprise.",
     avantages: ["IBAN professionnel séparé", "Carte Business Mastercard", "Virements illimités nationaux & internationaux", "Domiciliation bancaire reconnue", "Tableau de bord comptable intégré", "Accès multi-utilisateurs"],
-    prime: "Prime de bienvenue de 3 200 € après activation",
     cta: "Ouvrir un Compte Business",
     couleur: "from-[#1E3A8A] to-[#0EA5E9]",
     Icon: BuildingOffice2Icon,
