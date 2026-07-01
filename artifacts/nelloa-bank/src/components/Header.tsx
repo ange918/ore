@@ -16,25 +16,31 @@ function LanguagePicker() {
   const current = LANGUAGES.find((l) => l.code === lang)!;
 
   return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-lg hover:bg-primary/5">
+    <div className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1.5 rounded-lg hover:bg-primary/5"
+      >
         <Globe className="h-4 w-4" />
         <span>{current.flag}</span>
         <svg className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
       </button>
       {open && (
-        <div className="absolute top-full right-0 mt-1 w-44 bg-white rounded-xl shadow-xl border border-border p-1.5 z-50">
-          {LANGUAGES.map((l) => (
-            <button
-              key={l.code}
-              onClick={() => { setLang(l.code); setOpen(false); }}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${lang === l.code ? "bg-primary/10 text-primary font-semibold" : "hover:bg-slate-50 text-foreground"}`}
-            >
-              <span className="text-base">{l.flag}</span>
-              {l.label}
-            </button>
-          ))}
-        </div>
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute top-full right-0 mt-1 w-44 bg-white rounded-xl shadow-xl border border-border p-1.5 z-50">
+            {LANGUAGES.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => { setLang(l.code); setOpen(false); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${lang === l.code ? "bg-primary/10 text-primary font-semibold" : "hover:bg-slate-50 text-foreground"}`}
+              >
+                <span className="text-base">{l.flag}</span>
+                {l.label}
+              </button>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
