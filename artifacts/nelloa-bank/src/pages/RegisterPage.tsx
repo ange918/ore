@@ -10,6 +10,7 @@ import { Header } from "@/components/Header";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { createUser, setSession, getUserByEmail, generateIban, BIC } from "@/lib/storage";
+import { sendWelcomeEmail } from "@/lib/email";
 import { useLang } from "@/lib/i18n";
 
 type AccountType = 'personnel' | 'courant' | 'premium' | 'epargne';
@@ -120,6 +121,12 @@ export function RegisterPage() {
       };
 
       await createUser(newUser);
+      sendWelcomeEmail({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        accountType,
+      }).catch(() => {});
       setSession(id);
       setLocation('/dashboard');
     } catch (err) {
