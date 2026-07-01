@@ -25,6 +25,30 @@ type Translations = {
   };
   credits: { immo: string; immoDesc: string; perso: string; persoDesc: string; auto: string; autoDesc: string };
   assurances: { vie: string; vieDesc: string; habitat: string; habitatDesc: string };
+  login: {
+    title: string; email: string; password: string; submit: string; submitting: string;
+    error: string; errorGeneric: string; noAccount: string; register: string;
+  };
+  register: {
+    step1: string; step2: string; step3: string;
+    title1: string; title2: string; title2Sub: string; title3: string; title3Sub: string;
+    identity: string; contact: string; address: string; security: string;
+    firstName: string; lastName: string; birthDate: string; nationality: string; idNumber: string;
+    phone: string; emailLabel: string; street: string; postalBox: string; postalBoxOpt: string;
+    city: string; postalCode: string; country: string; password: string; confirmPassword: string;
+    next: string; prev: string; create: string; creating: string;
+    hasAccount: string; signin: string; emailUsed: string;
+    firstNameReq: string; lastNameReq: string; birthDateReq: string; nationalityReq: string;
+    idNumberReq: string; phoneInvalid: string; emailInvalid: string; passwordMin: string;
+    passwordMismatch: string; addressReq: string; cityReq: string; postalCodeReq: string; countryReq: string;
+    acctPersonnel: string; acctCourant: string; acctPremium: string; acctEpargne: string;
+    acctPersonnelLabel: string; acctCourantLabel: string; acctPremiumLabel: string; acctEpargneLabel: string;
+    avPersonnel: string[]; avCourant: string[]; avPremium: string[]; avEpargne: string[];
+    badgePopular: string; badgeNew: string;
+    recapFullName: string; recapBirthDate: string; recapNationality: string; recapId: string;
+    recapEmail: string; recapPhone: string; recapStreet: string; recapBox: string;
+    recapCity: string; recapPostal: string; recapCountry: string; recapAccountType: string;
+  };
   offre: {
     backHome: string; yourBank: string; manageTitle: string; manageDesc1: string;
     simpleAndFast: string; howToOpen: string; totalTransparency: string; ourPricing: string;
@@ -39,6 +63,28 @@ type Translations = {
     advantages: Array<{ title: string; desc: string }>;
     eligibility: string[];
     faq: Array<{ question: string; answer: string }>;
+  };
+  dashboard: {
+    logout: string;
+    kycRejectedTitle: string; kycRejectedDesc: string;
+    pendingTitle: string; pendingDesc: string; supportBtn: string;
+    docSentTitle: string; docSentDesc: string;
+    kycTitle: string; kycDesc: string;
+    uploadLabel: string; uploadFormats: string;
+    welcome: string; welcomeSub: string; activeTag: string;
+    balance: string; transfer: string; statement: string;
+    bankCoords: string; myAccount: string;
+    acctType: string; openedOn: string; kyc: string; currency: string; kycVerified: string;
+    cardNumber: string; holder: string; expires: string; cardType: string; copyTitle: string;
+    blockedTitle: string; blockedDesc: string; contactSupport: string;
+    acctPersonnel: string; acctCourant: string; acctPremium: string; acctEpargne: string;
+  };
+  footer: {
+    tagline: string;
+    quickLinks: string; home: string; offers: string; faq: string; contact: string;
+    accounts: string; legal: string;
+    legalNotice: string; privacy: string; terms: string; fees: string;
+    copyright: string;
   };
   offresData: Record<string, {
     categorie: string; titre: string; sousTitre: string; description: string;
@@ -89,6 +135,52 @@ const T: Record<Lang, Translations> = {
     },
     credits: { immo: "Prêt Immobilier", immoDesc: "Financez votre bien", perso: "Prêt Personnel", persoDesc: "Tous vos projets", auto: "Prêt Auto", autoDesc: "Roulez sereinement" },
     assurances: { vie: "Assurance Vie", vieDesc: "Protégez vos proches", habitat: "Assurance Habitat", habitatDesc: "Votre logement à 360°" },
+    login: { title: "Connexion à votre espace", email: "Email", password: "Mot de passe", submit: "Se connecter", submitting: "Connexion...", error: "Email ou mot de passe incorrect", errorGeneric: "Erreur de connexion, réessayez.", noAccount: "Pas encore de compte ?", register: "S'inscrire" },
+    register: {
+      step1: "Identité & Adresse", step2: "Type de compte", step3: "Récapitulatif",
+      title1: "Vos informations personnelles", title2: "Choisissez votre compte", title2Sub: "Vous pourrez changer de formule à tout moment depuis votre espace.", title3: "Récapitulatif", title3Sub: "Vérifiez vos informations avant de valider.",
+      identity: "Identité", contact: "Contact", address: "Adresse postale", security: "Sécurité",
+      firstName: "Prénom", lastName: "Nom", birthDate: "Date de naissance", nationality: "Nationalité", idNumber: "Numéro de pièce d'identité (CNI ou Passeport)",
+      phone: "Téléphone", emailLabel: "Adresse email", street: "Rue et numéro", postalBox: "Boîte postale", postalBoxOpt: "(optionnel)",
+      city: "Ville", postalCode: "Code postal", country: "Pays", password: "Mot de passe", confirmPassword: "Confirmer le mot de passe",
+      next: "Suivant →", prev: "← Précédent", create: "Créer mon compte", creating: "Création en cours...",
+      hasAccount: "Vous avez déjà un compte ?", signin: "Se connecter", emailUsed: "Cet email est déjà utilisé",
+      firstNameReq: "Prénom requis", lastNameReq: "Nom requis", birthDateReq: "Date de naissance requise", nationalityReq: "Nationalité requise",
+      idNumberReq: "Numéro de pièce d'identité requis", phoneInvalid: "Téléphone invalide", emailInvalid: "Email invalide", passwordMin: "6 caractères minimum",
+      passwordMismatch: "Les mots de passe ne correspondent pas", addressReq: "Adresse requise", cityReq: "Ville requise", postalCodeReq: "Code postal requis", countryReq: "Pays requis",
+      acctPersonnel: "Personnel", acctCourant: "Courant", acctPremium: "Premium", acctEpargne: "Épargne",
+      acctPersonnelLabel: "Compte Personnel", acctCourantLabel: "Compte Courant", acctPremiumLabel: "Compte Premium", acctEpargneLabel: "Compte Épargne",
+      avPersonnel: ["IBAN personnel", "Carte virtuelle", "Suivi en temps réel"],
+      avCourant: ["Virements illimités", "Chéquier disponible", "Domiciliation"],
+      avPremium: ["Conseiller dédié", "Cashback 2 %", "Carte Gold"],
+      avEpargne: ["Taux 3,5 % / an", "Intérêts mensuels", "Objectifs auto"],
+      badgePopular: "Populaire", badgeNew: "Nouveau",
+      recapFullName: "Nom complet", recapBirthDate: "Date de naissance", recapNationality: "Nationalité", recapId: "N° pièce d'identité",
+      recapEmail: "Email", recapPhone: "Téléphone", recapStreet: "Rue", recapBox: "Boîte postale",
+      recapCity: "Ville", recapPostal: "Code postal", recapCountry: "Pays", recapAccountType: "Type de compte",
+    },
+    footer: {
+      tagline: "La banque digitale qui vous fait confiance. Ouvrez votre compte en 3 minutes, 100 % en ligne.",
+      quickLinks: "Liens rapides", home: "Accueil", offers: "Nos offres", faq: "FAQ", contact: "Contact",
+      accounts: "Nos comptes", legal: "Légal",
+      legalNotice: "Mentions légales", privacy: "Politique de confidentialité", terms: "Conditions générales", fees: "Tarifs",
+      copyright: "© 2026 NELLOA BANK. Tous droits réservés.",
+    },
+    dashboard: {
+      logout: "Déconnexion",
+      kycRejectedTitle: "Votre document a été refusé", kycRejectedDesc: "Veuillez soumettre un nouveau document valide (carte d'identité, passeport).",
+      pendingTitle: "Compte en cours de validation", pendingDesc: "Votre dossier est examiné par notre équipe. Votre compte sera activé sous 24 à 48h.", supportBtn: "Support",
+      docSentTitle: "Document envoyé", docSentDesc: "Notre équipe vérifie votre identité sous 24h.",
+      kycTitle: "Vérification d'identité requise", kycDesc: "Soumettez votre pièce d'identité pour activer votre compte.",
+      uploadLabel: "Glissez votre pièce d'identité ici ou cliquez pour parcourir", uploadFormats: "Formats acceptés : JPG, PNG, PDF — Max 10 Mo",
+      welcome: "Bienvenue", welcomeSub: "Gérez vos finances en toute simplicité.", activeTag: "Compte actif",
+      balance: "Solde disponible", transfer: "Faire un virement", statement: "Relevé",
+      bankCoords: "Coordonnées bancaires", myAccount: "Mon compte",
+      acctType: "Type", openedOn: "Ouvert le", kyc: "KYC", currency: "Devise", kycVerified: "Vérifié ✓",
+      cardNumber: "Numéro de carte", holder: "Titulaire", expires: "Expire", cardType: "Type", copyTitle: "Copier",
+      blockedTitle: "Compte bloqué", blockedDesc: "Votre compte a été temporairement bloqué par notre équipe. Veuillez contacter le support pour plus d'informations.", contactSupport: "Contacter le support",
+      acctPersonnel: "Personnel", acctCourant: "Courant", acctPremium: "Premium", acctEpargne: "Épargne",
+    },
     offre: {
       backHome: "Retour à l'accueil", yourBank: "Votre banque, partout", manageTitle: "Gérez votre compte où que vous soyez",
       manageDesc1: "Depuis chez vous, depuis l'extérieur, depuis votre smartphone, tablette ou ordinateur — votre banque est toujours prête. Gérez votre budget, suivez vos dépenses en temps réel et effectuez vos opérations en toute sécurité, 24h/24 et 7j/7.",
@@ -241,6 +333,52 @@ const T: Record<Lang, Translations> = {
     },
     credits: { immo: "Home Loan", immoDesc: "Finance your property", perso: "Personal Loan", persoDesc: "All your projects", auto: "Auto Loan", autoDesc: "Drive with peace of mind" },
     assurances: { vie: "Life Insurance", vieDesc: "Protect your loved ones", habitat: "Home Insurance", habitatDesc: "Your home covered 360°" },
+    login: { title: "Sign in to your account", email: "Email", password: "Password", submit: "Sign in", submitting: "Signing in...", error: "Incorrect email or password", errorGeneric: "Connection error, please try again.", noAccount: "Don't have an account?", register: "Sign up" },
+    register: {
+      step1: "Identity & Address", step2: "Account type", step3: "Summary",
+      title1: "Your personal information", title2: "Choose your account", title2Sub: "You can change your plan at any time from your space.", title3: "Summary", title3Sub: "Check your information before confirming.",
+      identity: "Identity", contact: "Contact", address: "Postal address", security: "Security",
+      firstName: "First name", lastName: "Last name", birthDate: "Date of birth", nationality: "Nationality", idNumber: "ID number (National ID or Passport)",
+      phone: "Phone", emailLabel: "Email address", street: "Street and number", postalBox: "P.O. Box", postalBoxOpt: "(optional)",
+      city: "City", postalCode: "Postal code", country: "Country", password: "Password", confirmPassword: "Confirm password",
+      next: "Next →", prev: "← Previous", create: "Create my account", creating: "Creating...",
+      hasAccount: "Already have an account?", signin: "Sign in", emailUsed: "This email is already in use",
+      firstNameReq: "First name required", lastNameReq: "Last name required", birthDateReq: "Date of birth required", nationalityReq: "Nationality required",
+      idNumberReq: "ID number required", phoneInvalid: "Invalid phone number", emailInvalid: "Invalid email", passwordMin: "6 characters minimum",
+      passwordMismatch: "Passwords do not match", addressReq: "Address required", cityReq: "City required", postalCodeReq: "Postal code required", countryReq: "Country required",
+      acctPersonnel: "Personal", acctCourant: "Current", acctPremium: "Premium", acctEpargne: "Savings",
+      acctPersonnelLabel: "Personal Account", acctCourantLabel: "Current Account", acctPremiumLabel: "Premium Account", acctEpargneLabel: "Savings Account",
+      avPersonnel: ["Personal IBAN", "Virtual card", "Real-time tracking"],
+      avCourant: ["Unlimited transfers", "Cheque book", "Bank domiciliation"],
+      avPremium: ["Dedicated advisor", "2% cashback", "Gold card"],
+      avEpargne: ["3.5% / year rate", "Monthly interest", "Auto goals"],
+      badgePopular: "Popular", badgeNew: "New",
+      recapFullName: "Full name", recapBirthDate: "Date of birth", recapNationality: "Nationality", recapId: "ID number",
+      recapEmail: "Email", recapPhone: "Phone", recapStreet: "Street", recapBox: "P.O. Box",
+      recapCity: "City", recapPostal: "Postal code", recapCountry: "Country", recapAccountType: "Account type",
+    },
+    footer: {
+      tagline: "The digital bank that trusts you. Open your account in 3 minutes, 100% online.",
+      quickLinks: "Quick links", home: "Home", offers: "Our offers", faq: "FAQ", contact: "Contact",
+      accounts: "Our accounts", legal: "Legal",
+      legalNotice: "Legal notice", privacy: "Privacy policy", terms: "Terms & conditions", fees: "Fees",
+      copyright: "© 2026 NELLOA BANK. All rights reserved.",
+    },
+    dashboard: {
+      logout: "Log out",
+      kycRejectedTitle: "Your document was rejected", kycRejectedDesc: "Please submit a new valid document (national ID, passport).",
+      pendingTitle: "Account under review", pendingDesc: "Your file is being reviewed by our team. Your account will be activated within 24 to 48h.", supportBtn: "Support",
+      docSentTitle: "Document sent", docSentDesc: "Our team will verify your identity within 24h.",
+      kycTitle: "Identity verification required", kycDesc: "Submit your ID to activate your account.",
+      uploadLabel: "Drag your ID here or click to browse", uploadFormats: "Accepted formats: JPG, PNG, PDF — Max 10 MB",
+      welcome: "Welcome", welcomeSub: "Manage your finances with ease.", activeTag: "Active account",
+      balance: "Available balance", transfer: "Make a transfer", statement: "Statement",
+      bankCoords: "Bank details", myAccount: "My account",
+      acctType: "Type", openedOn: "Opened on", kyc: "KYC", currency: "Currency", kycVerified: "Verified ✓",
+      cardNumber: "Card number", holder: "Holder", expires: "Expires", cardType: "Type", copyTitle: "Copy",
+      blockedTitle: "Account blocked", blockedDesc: "Your account has been temporarily blocked by our team. Please contact support for more information.", contactSupport: "Contact support",
+      acctPersonnel: "Personal", acctCourant: "Current", acctPremium: "Premium", acctEpargne: "Savings",
+    },
     offre: {
       backHome: "Back to home", yourBank: "Your bank, everywhere", manageTitle: "Manage your account wherever you are",
       manageDesc1: "From home, outdoors, from your smartphone, tablet or computer — your bank is always ready. Manage your budget, track your expenses in real time and carry out your operations securely, 24/7.",
@@ -393,6 +531,52 @@ const T: Record<Lang, Translations> = {
     },
     credits: { immo: "Immobilienkredit", immoDesc: "Ihr Eigentum finanzieren", perso: "Privatkredit", persoDesc: "Alle Ihre Projekte", auto: "Autokredit", autoDesc: "Sorgenfrei fahren" },
     assurances: { vie: "Lebensversicherung", vieDesc: "Schützen Sie Ihre Lieben", habitat: "Wohnversicherung", habitatDesc: "Ihr Zuhause rundum" },
+    login: { title: "In Ihr Konto einloggen", email: "E-Mail", password: "Passwort", submit: "Anmelden", submitting: "Anmeldung...", error: "E-Mail oder Passwort falsch", errorGeneric: "Verbindungsfehler, bitte erneut versuchen.", noAccount: "Noch kein Konto?", register: "Registrieren" },
+    register: {
+      step1: "Identität & Adresse", step2: "Kontotyp", step3: "Zusammenfassung",
+      title1: "Ihre persönlichen Daten", title2: "Wählen Sie Ihr Konto", title2Sub: "Sie können Ihren Plan jederzeit in Ihrem Bereich ändern.", title3: "Zusammenfassung", title3Sub: "Überprüfen Sie Ihre Angaben vor der Bestätigung.",
+      identity: "Identität", contact: "Kontakt", address: "Postanschrift", security: "Sicherheit",
+      firstName: "Vorname", lastName: "Nachname", birthDate: "Geburtsdatum", nationality: "Nationalität", idNumber: "Ausweisnummer (Personalausweis oder Reisepass)",
+      phone: "Telefon", emailLabel: "E-Mail-Adresse", street: "Straße und Nummer", postalBox: "Postfach", postalBoxOpt: "(optional)",
+      city: "Stadt", postalCode: "Postleitzahl", country: "Land", password: "Passwort", confirmPassword: "Passwort bestätigen",
+      next: "Weiter →", prev: "← Zurück", create: "Konto erstellen", creating: "Wird erstellt...",
+      hasAccount: "Haben Sie bereits ein Konto?", signin: "Anmelden", emailUsed: "Diese E-Mail wird bereits verwendet",
+      firstNameReq: "Vorname erforderlich", lastNameReq: "Nachname erforderlich", birthDateReq: "Geburtsdatum erforderlich", nationalityReq: "Nationalität erforderlich",
+      idNumberReq: "Ausweisnummer erforderlich", phoneInvalid: "Ungültige Telefonnummer", emailInvalid: "Ungültige E-Mail", passwordMin: "Mindestens 6 Zeichen",
+      passwordMismatch: "Passwörter stimmen nicht überein", addressReq: "Adresse erforderlich", cityReq: "Stadt erforderlich", postalCodeReq: "Postleitzahl erforderlich", countryReq: "Land erforderlich",
+      acctPersonnel: "Persönlich", acctCourant: "Girokonto", acctPremium: "Premium", acctEpargne: "Sparkonto",
+      acctPersonnelLabel: "Persönliches Konto", acctCourantLabel: "Girokonto", acctPremiumLabel: "Premium-Konto", acctEpargneLabel: "Sparkonto",
+      avPersonnel: ["Persönliche IBAN", "Virtuelle Karte", "Echtzeit-Tracking"],
+      avCourant: ["Unbegrenzte Überweisungen", "Scheckbuch", "Bankdomizil"],
+      avPremium: ["Persönlicher Berater", "2 % Cashback", "Goldkarte"],
+      avEpargne: ["3,5 % / Jahr Zinssatz", "Monatliche Zinsen", "Auto-Ziele"],
+      badgePopular: "Beliebt", badgeNew: "Neu",
+      recapFullName: "Vollständiger Name", recapBirthDate: "Geburtsdatum", recapNationality: "Nationalität", recapId: "Ausweisnummer",
+      recapEmail: "E-Mail", recapPhone: "Telefon", recapStreet: "Straße", recapBox: "Postfach",
+      recapCity: "Stadt", recapPostal: "Postleitzahl", recapCountry: "Land", recapAccountType: "Kontotyp",
+    },
+    footer: {
+      tagline: "Die digitale Bank, die Ihnen vertraut. Eröffnen Sie Ihr Konto in 3 Minuten, 100 % online.",
+      quickLinks: "Schnelllinks", home: "Startseite", offers: "Unsere Angebote", faq: "FAQ", contact: "Kontakt",
+      accounts: "Unsere Konten", legal: "Rechtliches",
+      legalNotice: "Impressum", privacy: "Datenschutzrichtlinie", terms: "Allgemeine Geschäftsbedingungen", fees: "Preise",
+      copyright: "© 2026 NELLOA BANK. Alle Rechte vorbehalten.",
+    },
+    dashboard: {
+      logout: "Abmelden",
+      kycRejectedTitle: "Ihr Dokument wurde abgelehnt", kycRejectedDesc: "Bitte reichen Sie ein neues gültiges Dokument ein (Personalausweis, Reisepass).",
+      pendingTitle: "Konto wird überprüft", pendingDesc: "Ihre Unterlagen werden von unserem Team geprüft. Ihr Konto wird innerhalb von 24 bis 48 Stunden aktiviert.", supportBtn: "Support",
+      docSentTitle: "Dokument gesendet", docSentDesc: "Unser Team überprüft Ihre Identität innerhalb von 24 Stunden.",
+      kycTitle: "Identitätsverifizierung erforderlich", kycDesc: "Reichen Sie Ihren Ausweis ein, um Ihr Konto zu aktivieren.",
+      uploadLabel: "Ziehen Sie Ihren Ausweis hierher oder klicken Sie zum Durchsuchen", uploadFormats: "Akzeptierte Formate: JPG, PNG, PDF — Max 10 MB",
+      welcome: "Willkommen", welcomeSub: "Verwalten Sie Ihre Finanzen mit Leichtigkeit.", activeTag: "Aktives Konto",
+      balance: "Verfügbares Guthaben", transfer: "Überweisung tätigen", statement: "Kontoauszug",
+      bankCoords: "Bankverbindung", myAccount: "Mein Konto",
+      acctType: "Typ", openedOn: "Eröffnet am", kyc: "KYC", currency: "Währung", kycVerified: "Verifiziert ✓",
+      cardNumber: "Kartennummer", holder: "Inhaber", expires: "Läuft ab", cardType: "Typ", copyTitle: "Kopieren",
+      blockedTitle: "Konto gesperrt", blockedDesc: "Ihr Konto wurde vorübergehend von unserem Team gesperrt. Bitte kontaktieren Sie den Support für weitere Informationen.", contactSupport: "Support kontaktieren",
+      acctPersonnel: "Persönlich", acctCourant: "Girokonto", acctPremium: "Premium", acctEpargne: "Sparkonto",
+    },
     offre: {
       backHome: "Zurück zur Startseite", yourBank: "Ihre Bank, überall", manageTitle: "Verwalten Sie Ihr Konto, wo immer Sie sind",
       manageDesc1: "Von zu Hause, unterwegs, vom Smartphone, Tablet oder Computer — Ihre Bank ist immer bereit. Verwalten Sie Ihr Budget, verfolgen Sie Ihre Ausgaben in Echtzeit und führen Sie Ihre Transaktionen sicher durch, 24/7.",
@@ -545,6 +729,52 @@ const T: Record<Lang, Translations> = {
     },
     credits: { immo: "Préstamo Hipotecario", immoDesc: "Financie su propiedad", perso: "Préstamo Personal", persoDesc: "Todos sus proyectos", auto: "Préstamo Auto", autoDesc: "Conduzca tranquilo" },
     assurances: { vie: "Seguro de Vida", vieDesc: "Proteja a sus seres queridos", habitat: "Seguro de Hogar", habitatDesc: "Su hogar cubierto 360°" },
+    login: { title: "Acceder a su cuenta", email: "Email", password: "Contraseña", submit: "Iniciar sesión", submitting: "Iniciando...", error: "Email o contraseña incorrectos", errorGeneric: "Error de conexión, inténtelo de nuevo.", noAccount: "¿Aún no tiene cuenta?", register: "Registrarse" },
+    register: {
+      step1: "Identidad & Dirección", step2: "Tipo de cuenta", step3: "Resumen",
+      title1: "Su información personal", title2: "Elija su cuenta", title2Sub: "Podrá cambiar de plan en cualquier momento desde su espacio.", title3: "Resumen", title3Sub: "Verifique su información antes de confirmar.",
+      identity: "Identidad", contact: "Contacto", address: "Dirección postal", security: "Seguridad",
+      firstName: "Nombre", lastName: "Apellido", birthDate: "Fecha de nacimiento", nationality: "Nacionalidad", idNumber: "Número de documento (DNI o Pasaporte)",
+      phone: "Teléfono", emailLabel: "Dirección de email", street: "Calle y número", postalBox: "Apartado postal", postalBoxOpt: "(opcional)",
+      city: "Ciudad", postalCode: "Código postal", country: "País", password: "Contraseña", confirmPassword: "Confirmar contraseña",
+      next: "Siguiente →", prev: "← Anterior", create: "Crear mi cuenta", creating: "Creando...",
+      hasAccount: "¿Ya tiene una cuenta?", signin: "Iniciar sesión", emailUsed: "Este email ya está en uso",
+      firstNameReq: "Nombre requerido", lastNameReq: "Apellido requerido", birthDateReq: "Fecha de nacimiento requerida", nationalityReq: "Nacionalidad requerida",
+      idNumberReq: "Número de documento requerido", phoneInvalid: "Teléfono inválido", emailInvalid: "Email inválido", passwordMin: "Mínimo 6 caracteres",
+      passwordMismatch: "Las contraseñas no coinciden", addressReq: "Dirección requerida", cityReq: "Ciudad requerida", postalCodeReq: "Código postal requerido", countryReq: "País requerido",
+      acctPersonnel: "Personal", acctCourant: "Corriente", acctPremium: "Premium", acctEpargne: "Ahorro",
+      acctPersonnelLabel: "Cuenta Personal", acctCourantLabel: "Cuenta Corriente", acctPremiumLabel: "Cuenta Premium", acctEpargneLabel: "Cuenta Ahorro",
+      avPersonnel: ["IBAN personal", "Tarjeta virtual", "Seguimiento en tiempo real"],
+      avCourant: ["Transferencias ilimitadas", "Talonario disponible", "Domiciliación"],
+      avPremium: ["Asesor dedicado", "Cashback 2 %", "Tarjeta Gold"],
+      avEpargne: ["Tasa 3,5 % / año", "Intereses mensuales", "Objetivos automáticos"],
+      badgePopular: "Popular", badgeNew: "Nuevo",
+      recapFullName: "Nombre completo", recapBirthDate: "Fecha de nacimiento", recapNationality: "Nacionalidad", recapId: "N° documento",
+      recapEmail: "Email", recapPhone: "Teléfono", recapStreet: "Calle", recapBox: "Apartado postal",
+      recapCity: "Ciudad", recapPostal: "Código postal", recapCountry: "País", recapAccountType: "Tipo de cuenta",
+    },
+    footer: {
+      tagline: "El banco digital que confía en usted. Abra su cuenta en 3 minutos, 100 % en línea.",
+      quickLinks: "Enlaces rápidos", home: "Inicio", offers: "Nuestras ofertas", faq: "FAQ", contact: "Contacto",
+      accounts: "Nuestras cuentas", legal: "Legal",
+      legalNotice: "Aviso legal", privacy: "Política de privacidad", terms: "Términos y condiciones", fees: "Tarifas",
+      copyright: "© 2026 NELLOA BANK. Todos los derechos reservados.",
+    },
+    dashboard: {
+      logout: "Cerrar sesión",
+      kycRejectedTitle: "Su documento fue rechazado", kycRejectedDesc: "Por favor envíe un nuevo documento válido (DNI, pasaporte).",
+      pendingTitle: "Cuenta en proceso de validación", pendingDesc: "Nuestro equipo está revisando su expediente. Su cuenta se activará en 24 a 48 horas.", supportBtn: "Soporte",
+      docSentTitle: "Documento enviado", docSentDesc: "Nuestro equipo verificará su identidad en 24 horas.",
+      kycTitle: "Verificación de identidad requerida", kycDesc: "Envíe su documento de identidad para activar su cuenta.",
+      uploadLabel: "Arrastre su documento aquí o haga clic para explorar", uploadFormats: "Formatos aceptados: JPG, PNG, PDF — Máx 10 MB",
+      welcome: "Bienvenido/a", welcomeSub: "Gestione sus finanzas con facilidad.", activeTag: "Cuenta activa",
+      balance: "Saldo disponible", transfer: "Hacer una transferencia", statement: "Extracto",
+      bankCoords: "Datos bancarios", myAccount: "Mi cuenta",
+      acctType: "Tipo", openedOn: "Abierta el", kyc: "KYC", currency: "Divisa", kycVerified: "Verificado ✓",
+      cardNumber: "Número de tarjeta", holder: "Titular", expires: "Vence", cardType: "Tipo", copyTitle: "Copiar",
+      blockedTitle: "Cuenta bloqueada", blockedDesc: "Su cuenta ha sido bloqueada temporalmente por nuestro equipo. Por favor contacte al soporte para más información.", contactSupport: "Contactar soporte",
+      acctPersonnel: "Personal", acctCourant: "Corriente", acctPremium: "Premium", acctEpargne: "Ahorro",
+    },
     offre: {
       backHome: "Volver al inicio", yourBank: "Su banco, en todas partes", manageTitle: "Gestione su cuenta donde quiera que esté",
       manageDesc1: "Desde casa, desde fuera, desde su smartphone, tableta u ordenador — su banco siempre está listo. Gestione su presupuesto, realice un seguimiento de sus gastos en tiempo real y lleve a cabo sus operaciones con total seguridad, 24h/24 y 7 días/7.",
@@ -697,6 +927,52 @@ const T: Record<Lang, Translations> = {
     },
     credits: { immo: "Empréstimo Imobiliário", immoDesc: "Financie o seu imóvel", perso: "Empréstimo Pessoal", persoDesc: "Todos os seus projetos", auto: "Empréstimo Auto", autoDesc: "Dirija com tranquilidade" },
     assurances: { vie: "Seguro de Vida", vieDesc: "Proteja os seus entes queridos", habitat: "Seguro Habitação", habitatDesc: "A sua casa coberta 360°" },
+    login: { title: "Aceder à sua conta", email: "Email", password: "Palavra-passe", submit: "Entrar", submitting: "A entrar...", error: "Email ou palavra-passe incorretos", errorGeneric: "Erro de ligação, tente novamente.", noAccount: "Ainda não tem conta?", register: "Registar-se" },
+    register: {
+      step1: "Identidade & Endereço", step2: "Tipo de conta", step3: "Resumo",
+      title1: "As suas informações pessoais", title2: "Escolha a sua conta", title2Sub: "Pode mudar de plano a qualquer momento no seu espaço.", title3: "Resumo", title3Sub: "Verifique as suas informações antes de confirmar.",
+      identity: "Identidade", contact: "Contacto", address: "Endereço postal", security: "Segurança",
+      firstName: "Nome", lastName: "Apelido", birthDate: "Data de nascimento", nationality: "Nacionalidade", idNumber: "Número de documento (BI ou Passaporte)",
+      phone: "Telefone", emailLabel: "Endereço de email", street: "Rua e número", postalBox: "Caixa postal", postalBoxOpt: "(opcional)",
+      city: "Cidade", postalCode: "Código postal", country: "País", password: "Palavra-passe", confirmPassword: "Confirmar palavra-passe",
+      next: "Seguinte →", prev: "← Anterior", create: "Criar a minha conta", creating: "A criar...",
+      hasAccount: "Já tem uma conta?", signin: "Entrar", emailUsed: "Este email já está em uso",
+      firstNameReq: "Nome obrigatório", lastNameReq: "Apelido obrigatório", birthDateReq: "Data de nascimento obrigatória", nationalityReq: "Nacionalidade obrigatória",
+      idNumberReq: "Número de documento obrigatório", phoneInvalid: "Telefone inválido", emailInvalid: "Email inválido", passwordMin: "Mínimo 6 caracteres",
+      passwordMismatch: "As palavras-passe não coincidem", addressReq: "Endereço obrigatório", cityReq: "Cidade obrigatória", postalCodeReq: "Código postal obrigatório", countryReq: "País obrigatório",
+      acctPersonnel: "Pessoal", acctCourant: "Corrente", acctPremium: "Premium", acctEpargne: "Poupança",
+      acctPersonnelLabel: "Conta Pessoal", acctCourantLabel: "Conta Corrente", acctPremiumLabel: "Conta Premium", acctEpargneLabel: "Conta Poupança",
+      avPersonnel: ["IBAN pessoal", "Cartão virtual", "Acompanhamento em tempo real"],
+      avCourant: ["Transferências ilimitadas", "Cheques disponíveis", "Domiciliação bancária"],
+      avPremium: ["Consultor dedicado", "Cashback 2 %", "Cartão Gold"],
+      avEpargne: ["Taxa 3,5 % / ano", "Juros mensais", "Objetivos automáticos"],
+      badgePopular: "Popular", badgeNew: "Novo",
+      recapFullName: "Nome completo", recapBirthDate: "Data de nascimento", recapNationality: "Nacionalidade", recapId: "N° documento",
+      recapEmail: "Email", recapPhone: "Telefone", recapStreet: "Rua", recapBox: "Caixa postal",
+      recapCity: "Cidade", recapPostal: "Código postal", recapCountry: "País", recapAccountType: "Tipo de conta",
+    },
+    footer: {
+      tagline: "O banco digital que confia em si. Abra a sua conta em 3 minutos, 100 % online.",
+      quickLinks: "Links rápidos", home: "Início", offers: "As nossas ofertas", faq: "FAQ", contact: "Contacto",
+      accounts: "As nossas contas", legal: "Legal",
+      legalNotice: "Aviso legal", privacy: "Política de privacidade", terms: "Termos e condições", fees: "Tarifas",
+      copyright: "© 2026 NELLOA BANK. Todos os direitos reservados.",
+    },
+    dashboard: {
+      logout: "Terminar sessão",
+      kycRejectedTitle: "O seu documento foi recusado", kycRejectedDesc: "Por favor envie um novo documento válido (BI, passaporte).",
+      pendingTitle: "Conta em processo de validação", pendingDesc: "O seu processo está a ser analisado pela nossa equipa. A sua conta será ativada em 24 a 48 horas.", supportBtn: "Suporte",
+      docSentTitle: "Documento enviado", docSentDesc: "A nossa equipa irá verificar a sua identidade em 24 horas.",
+      kycTitle: "Verificação de identidade necessária", kycDesc: "Envie o seu documento de identidade para ativar a sua conta.",
+      uploadLabel: "Arraste o seu documento aqui ou clique para procurar", uploadFormats: "Formatos aceites: JPG, PNG, PDF — Máx 10 MB",
+      welcome: "Bem-vindo/a", welcomeSub: "Gira as suas finanças com facilidade.", activeTag: "Conta ativa",
+      balance: "Saldo disponível", transfer: "Fazer uma transferência", statement: "Extrato",
+      bankCoords: "Dados bancários", myAccount: "A minha conta",
+      acctType: "Tipo", openedOn: "Aberta em", kyc: "KYC", currency: "Moeda", kycVerified: "Verificado ✓",
+      cardNumber: "Número do cartão", holder: "Titular", expires: "Validade", cardType: "Tipo", copyTitle: "Copiar",
+      blockedTitle: "Conta bloqueada", blockedDesc: "A sua conta foi temporariamente bloqueada pela nossa equipa. Por favor contacte o suporte para mais informações.", contactSupport: "Contactar suporte",
+      acctPersonnel: "Pessoal", acctCourant: "Corrente", acctPremium: "Premium", acctEpargne: "Poupança",
+    },
     offre: {
       backHome: "Voltar ao início", yourBank: "O seu banco, em todo o lado", manageTitle: "Gira a sua conta onde quer que esteja",
       manageDesc1: "Em casa, fora de casa, no smartphone, tablet ou computador — o seu banco está sempre pronto. Gira o seu orçamento, acompanhe as suas despesas em tempo real e realize as suas operações com total segurança, 24h/24 e 7 dias/7.",
