@@ -10,7 +10,12 @@ export async function sendWelcomeEmail(params: {
   email: string;
   accountType: string;
 }) {
-  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) return;
+  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+    console.warn('[email] EmailJS env vars missing — skipping welcome email');
+    return;
+  }
+
+  emailjs.init({ publicKey: PUBLIC_KEY });
 
   await emailjs.send(
     SERVICE_ID,
@@ -21,6 +26,5 @@ export async function sendWelcomeEmail(params: {
       account_type: params.accountType,
       reply_to: 'contact@nelloabank.com',
     },
-    PUBLIC_KEY,
   );
 }

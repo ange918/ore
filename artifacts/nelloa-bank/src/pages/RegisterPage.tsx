@@ -126,7 +126,7 @@ export function RegisterPage() {
         lastName: data.lastName,
         email: data.email,
         accountType,
-      }).catch(() => {});
+      }).catch((err) => console.error('[email] sendWelcomeEmail failed:', err));
       setSession(id);
       setLocation('/dashboard');
     } catch (err) {
