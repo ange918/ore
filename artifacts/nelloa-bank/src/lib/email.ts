@@ -1,8 +1,8 @@
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+const SERVICE_ID = 'service_nr8t42s';
+const TEMPLATE_ID = 'template_eu2elcn';
+const PUBLIC_KEY = 'FKlT6Ww_6oM6cEvQh';
 
 export async function sendWelcomeEmail(params: {
   firstName: string;
@@ -10,11 +10,6 @@ export async function sendWelcomeEmail(params: {
   email: string;
   accountType: string;
 }) {
-  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-    console.warn('[email] EmailJS env vars missing — skipping welcome email');
-    return;
-  }
-
   emailjs.init({ publicKey: PUBLIC_KEY });
 
   await emailjs.send(
