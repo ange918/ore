@@ -304,7 +304,7 @@ const T: Record<Lang, Translations> = {
       testimonialsTag: "Ils nous font confiance",
       testimonialsTitle: "Ce que disent nos clients",
       testimonials: [
-        { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et le service client est excellent. Je recommande !", initials: "AD" },
+        { name: "Hans Weber", role: "Entrepreneur", text: "NELLOA BANK a transformé ma façon de gérer mes finances. L'ouverture de compte a été ultra rapide et le service client est excellent. Je recommande !", initials: "HW" },
         { name: "Sophie Martin", role: "Freelance Designer", text: "Le tableau de bord est clair et intuitif. Fini les frais cachés, fini les longues attentes. Mon compte courant NELLOA m'a simplifié la vie au quotidien.", initials: "SM" },
         { name: "Kouassi Bamba", role: "Responsable commercial", text: "Le compte Premium vaut vraiment son nom. Mon conseiller dédié répond en moins d'une heure et le cashback 2 % m'a fait économiser plusieurs centaines d'euros.", initials: "KB" },
       ],
@@ -502,7 +502,7 @@ const T: Record<Lang, Translations> = {
       testimonialsTag: "They trust us",
       testimonialsTitle: "What our clients say",
       testimonials: [
-        { name: "Amara Diallo", role: "Entrepreneur", text: "NELLOA BANK transformed the way I manage my finances. Account opening was lightning fast and customer service is excellent. Highly recommend!", initials: "AD" },
+        { name: "Hans Weber", role: "Entrepreneur", text: "NELLOA BANK transformed the way I manage my finances. Account opening was lightning fast and customer service is excellent. Highly recommend!", initials: "HW" },
         { name: "Sophie Martin", role: "Freelance Designer", text: "The dashboard is clear and intuitive. No more hidden fees, no more long waits. My NELLOA current account has simplified my daily life.", initials: "SM" },
         { name: "Kouassi Bamba", role: "Sales Manager", text: "The Premium account truly lives up to its name. My dedicated advisor responds in under an hour and the 2% cashback has saved me hundreds of euros.", initials: "KB" },
       ],
@@ -700,7 +700,7 @@ const T: Record<Lang, Translations> = {
       testimonialsTag: "Sie vertrauen uns",
       testimonialsTitle: "Was unsere Kunden sagen",
       testimonials: [
-        { name: "Amara Diallo", role: "Unternehmer", text: "NELLOA BANK hat mein Finanzmanagement grundlegend verändert. Die Kontoeröffnung war blitzschnell und der Kundenservice ist ausgezeichnet. Sehr empfehlenswert!", initials: "AD" },
+        { name: "Hans Weber", role: "Unternehmer", text: "NELLOA BANK hat mein Finanzmanagement grundlegend verändert. Die Kontoeröffnung war blitzschnell und der Kundenservice ist ausgezeichnet. Sehr empfehlenswert!", initials: "HW" },
         { name: "Sophie Martin", role: "Freelance Designerin", text: "Das Dashboard ist übersichtlich und intuitiv. Keine versteckten Gebühren mehr, keine langen Wartezeiten. Mein NELLOA-Konto hat meinen Alltag vereinfacht.", initials: "SM" },
         { name: "Kouassi Bamba", role: "Vertriebsleiter", text: "Das Premium-Konto hält wirklich, was es verspricht. Mein persönlicher Berater antwortet in unter einer Stunde und der 2 % Cashback hat mir bereits hunderte Euro gespart.", initials: "KB" },
       ],
@@ -898,7 +898,7 @@ const T: Record<Lang, Translations> = {
       testimonialsTag: "Confían en nosotros",
       testimonialsTitle: "Lo que dicen nuestros clientes",
       testimonials: [
-        { name: "Amara Diallo", role: "Emprendedor", text: "NELLOA BANK transformó mi forma de gestionar mis finanzas. La apertura de la cuenta fue ultrarrápida y el servicio al cliente es excelente. ¡Lo recomiendo!", initials: "AD" },
+        { name: "Hans Weber", role: "Emprendedor", text: "NELLOA BANK transformó mi forma de gestionar mis finanzas. La apertura de la cuenta fue ultrarrápida y el servicio al cliente es excelente. ¡Lo recomiendo!", initials: "HW" },
         { name: "Sophie Martin", role: "Diseñadora Freelance", text: "El panel de control es claro e intuitivo. Sin más comisiones ocultas ni largas esperas. Mi cuenta NELLOA ha simplificado mi vida cotidiana.", initials: "SM" },
         { name: "Kouassi Bamba", role: "Responsable Comercial", text: "La cuenta Premium realmente merece su nombre. Mi asesor dedicado responde en menos de una hora y el cashback del 2 % me ha hecho ahorrar varios cientos de euros.", initials: "KB" },
       ],
@@ -1096,7 +1096,7 @@ const T: Record<Lang, Translations> = {
       testimonialsTag: "Eles confiam em nós",
       testimonialsTitle: "O que dizem os nossos clientes",
       testimonials: [
-        { name: "Amara Diallo", role: "Empreendedor", text: "O NELLOA BANK transformou a minha forma de gerir as minhas finanças. A abertura da conta foi ultrarrápida e o serviço ao cliente é excelente. Recomendo!", initials: "AD" },
+        { name: "Hans Weber", role: "Empreendedor", text: "O NELLOA BANK transformou a minha forma de gerir as minhas finanças. A abertura da conta foi ultrarrápida e o serviço ao cliente é excelente. Recomendo!", initials: "HW" },
         { name: "Sophie Martin", role: "Designer Freelance", text: "O painel de controlo é claro e intuitivo. Chega de taxas ocultas, chega de longas esperas. A minha conta NELLOA simplificou o meu dia a dia.", initials: "SM" },
         { name: "Kouassi Bamba", role: "Responsável Comercial", text: "A conta Premium realmente merece o seu nome. O meu consultor dedicado responde em menos de uma hora e o cashback de 2 % já me fez economizar várias centenas de euros.", initials: "KB" },
       ],
