@@ -1,7 +1,11 @@
 import { Link } from "wouter";
 import { Phone, Mail } from "lucide-react";
+import { useLang } from "@/lib/i18n";
 
 export function Footer() {
+  const { t } = useLang();
+  const f = t.footer;
+
   return (
     <footer className="bg-[#0F172A] text-white py-14">
       <div className="container mx-auto px-4">
@@ -10,9 +14,7 @@ export function Footer() {
             <Link href="/" className="block mb-3">
               <img src="/nelloa-logo.jpg" alt="Nelloa Bank" className="h-10 w-auto" />
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed mb-3">
-              La banque digitale qui vous fait confiance. Ouvrez votre compte en 3 minutes, 100 % en ligne.
-            </p>
+            <p className="text-white/50 text-sm leading-relaxed mb-3">{f.tagline}</p>
             <p className="text-white/40 text-xs leading-relaxed mb-3">
               LIBRE REPONSE 8975975443<br />
               PARIS CEDEX 09
@@ -28,17 +30,17 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">Liens rapides</p>
+            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">{f.quickLinks}</p>
             <ul className="space-y-2.5">
-              <li><Link href="/" className="text-white/50 text-sm hover:text-white transition-colors">Accueil</Link></li>
-              <li><a href="/#offres" className="text-white/50 text-sm hover:text-white transition-colors">Nos offres</a></li>
-              <li><a href="/#faq" className="text-white/50 text-sm hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="mailto:contact@nelloabank.com" className="text-white/50 text-sm hover:text-white transition-colors">Contact</a></li>
+              <li><Link href="/" className="text-white/50 text-sm hover:text-white transition-colors">{f.home}</Link></li>
+              <li><a href="/#offres" className="text-white/50 text-sm hover:text-white transition-colors">{f.offers}</a></li>
+              <li><a href="/#faq" className="text-white/50 text-sm hover:text-white transition-colors">{f.faq}</a></li>
+              <li><a href="mailto:contact@nelloabank.com" className="text-white/50 text-sm hover:text-white transition-colors">{f.contact}</a></li>
             </ul>
           </div>
 
           <div>
-            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">Nos comptes</p>
+            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">{f.accounts}</p>
             <ul className="space-y-2.5">
               <li><Link href="/offres/compte-personnel" className="text-white/50 text-sm hover:text-white transition-colors">Compte Personnel</Link></li>
               <li><Link href="/offres/compte-business" className="text-white/50 text-sm hover:text-white transition-colors">Compte Business</Link></li>
@@ -50,21 +52,21 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">Légal</p>
+            <p className="font-semibold text-xs mb-4 text-white/60 uppercase tracking-widest">{f.legal}</p>
             <ul className="space-y-2.5">
-              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">Mentions légales</a></li>
-              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">Politique de confidentialité</a></li>
-              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">Conditions générales</a></li>
-              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">Tarifs</a></li>
+              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">{f.legalNotice}</a></li>
+              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">{f.privacy}</a></li>
+              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">{f.terms}</a></li>
+              <li><a href="#" className="text-white/50 text-sm hover:text-white transition-colors">{f.fees}</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/30 text-sm">© 2026 NELLOA BANK. Tous droits réservés.</p>
+          <p className="text-white/30 text-sm">{f.copyright}</p>
           <div className="flex gap-6">
-            <a href="#" className="text-white/30 text-sm hover:text-white/70 transition-colors">Mentions légales</a>
-            <a href="#" className="text-white/30 text-sm hover:text-white/70 transition-colors">Politique de confidentialité</a>
+            <a href="#" className="text-white/30 text-sm hover:text-white/70 transition-colors">{f.legalNotice}</a>
+            <a href="#" className="text-white/30 text-sm hover:text-white/70 transition-colors">{f.privacy}</a>
           </div>
         </div>
       </div>
